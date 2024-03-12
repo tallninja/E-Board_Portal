@@ -1,0 +1,13 @@
+services:
+
+  # Database
+  db:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_DB: 'E_Board_DB'
+      POSTGRES_USER: 'dbuser'
+      POSTGRES_PASSWORD: 'password'
+    ports:
+      - '5432:5432'
+    volumes:
+      - '.data:/var/lib/postgresql/data'

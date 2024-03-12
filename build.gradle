@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id "com.github.node-gradle.node" version "7.0.2"
+}
+
+group = 'com.bobgroganconsulting'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+//	implementation platform("software.amazon.awssdk:bom:2.21.1")
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.676'
+	implementation 'commons-io:commons-io:2.15.1'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation 'org.flywaydb:flyway-core'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'software.amazon.awssdk:bom:2.25.6'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	annotationProcessor 'org.projectlombok:lombok'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+node {
+	nodeProjectDir = file("${project.projectDir}/src/main/frontend")
+}
+
+tasks.register('npmRunDev', PnpmTask) {
+	// run the frontend dev server
+	args = ["run", "dev"]
+}
+
+npmRunDev.dependsOn(pnpmInstall)

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#dropdownRadio {
+    position: absolute;  
+    margin: 0px; 
+    transform: translate3d(522.5px, 3847.5px, 0px);
+}
