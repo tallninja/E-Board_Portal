@@ -3,12 +3,12 @@ import { useTheme } from '../../hooks';
 import { HamburgerIcon, MoonIcon, SunIcon } from '../icons';
 import { Branding } from '../Branding';
 import { UserMenu } from './UserMenu';
-import IMAGES from '../../images';
+import IMAGES from '../../assets.ts';
 
 export function Navbar() {
 	const [colorTheme, setTheme] = useTheme();
 	const [darkMode, setDarkMode] = useState(
-		colorTheme === 'light' ? true : false
+		colorTheme === 'light'
 	);
 
 	const toggleDarkMode = (checked: boolean) => {

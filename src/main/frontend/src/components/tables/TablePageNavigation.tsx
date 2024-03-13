@@ -8,7 +8,7 @@ interface Props {
 	pageData?: PageData;
 }
 
-export function TablePageNavigation({ pageData }: Props) {
+export function TablePageNavigation({ }: Props) {
 	return (
 		<nav
 			className='flex items-center flex-column flex-wrap md:flex-row justify-between pt-4'

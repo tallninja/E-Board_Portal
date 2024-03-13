@@ -20,19 +20,19 @@ export function getDocument(id: number): Promise<Document | undefined> {
 	return Promise.resolve(documents.find((d) => d.id === id));
 }
 
-export function getVideos(): Promise<Video[]> {
+export function getVideos(): Promise<VideoRecording[]> {
 	return Promise.resolve(videos);
 }
 
-export function getVideo(id: number): Promise<Video | undefined> {
+export function getVideo(id: number): Promise<VideoRecording | undefined> {
 	return Promise.resolve(videos.find((v) => v.id === id));
 }
 
-export function getAudios(): Promise<Audio[]> {
+export function getAudios(): Promise<AudioRecording[]> {
 	return Promise.resolve(audios);
 }
 
-export function getAudio(id: number): Promise<Audio | undefined> {
+export function getAudio(id: number): Promise<AudioRecording | undefined> {
 	return Promise.resolve(audios.find((a) => a.id === id));
 }
 

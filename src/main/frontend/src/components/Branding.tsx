@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import IMAGES from '../images';
+import IMAGES from '../assets.ts';
 
 interface Props {
 	colorTheme: String;
@@ -8,11 +8,11 @@ interface Props {
 
 export function Branding({ colorTheme }: Props) {
 	const [darkMode, setDarkMode] = useState(
-		colorTheme === 'light' ? true : false
+		colorTheme === 'light'
 	);
 
 	useEffect(() => {
-		setDarkMode(colorTheme === 'light' ? true : false);
+		setDarkMode(colorTheme === 'light');
 	}, [colorTheme]);
 
 	return (

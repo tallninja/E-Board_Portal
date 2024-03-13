@@ -38,21 +38,45 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	annotationProcessor 'org.projectlombok:lombok'
-//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testImplementation 'org.springframework.security:spring-security-test'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
 node {
+    download = true
+    version = "20.11.1"
+	npmWorkDir = file("${project.projectDir}/.gradle/npm")
 	nodeProjectDir = file("${project.projectDir}/src/main/frontend")
 }
 
-tasks.register('npmRunDev', PnpmTask) {
+tasks.register('npmInstallTypescript', NpmTask) {
+	args = ["install", "-g", "typescript"]
+}
+
+tasks.register('npmInstallVite', NpmTask) {
+	args = ["install", "-g", "vite"]
+}
+
+tasks.register('npmRunDev', NpmTask) {
 	// run the frontend dev server
 	args = ["run", "dev"]
 }
 
-npmRunDev.dependsOn(pnpmInstall)
+tasks.register('npmBuild', NpmTask) {
+    args = ["run", "build"]
+}
+
+tasks.register("copyFrontend", Copy) {
+    from "${project.projectDir}/src/main/frontend/dist"
+    into "${project.projectDir}/build/resources/main/static"
+}
+
+npmRunDev.dependsOn(npmInstallVite, npmInstallTypescript, npmInstall)
+npmBuild.dependsOn(npmInstallVite, npmInstallTypescript, npmInstall)
+copyFrontend.dependsOn(npmBuild)
+processResources.dependsOn(copyFrontend)
+compileJava.dependsOn(npmBuild)
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
