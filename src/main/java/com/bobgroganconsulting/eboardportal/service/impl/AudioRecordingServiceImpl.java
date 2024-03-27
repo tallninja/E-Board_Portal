@@ -5,6 +5,7 @@
  */
 package com.bobgroganconsulting.eboardportal.service.impl;
 
+import com.bobgroganconsulting.eboardportal.constants.AudioFileTypes;
 import com.bobgroganconsulting.eboardportal.domain.entities.AudioRecording;
 import com.bobgroganconsulting.eboardportal.domain.entities.Meeting;
 import com.bobgroganconsulting.eboardportal.dtos.BlobFile;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import static com.bobgroganconsulting.eboardportal.service.utils.FileTransferUtils.*;
 
 import java.util.UUID;
 
@@ -59,6 +61,7 @@ public class AudioRecordingServiceImpl implements AudioRecordingService {
     @Override
     public AudioRecordingDto upload(UUID meetingId, MultipartFile multipartFile) throws Exception {
         Meeting meeting = meetingService.findOne(meetingId);
+        assertFileTypeIsValid(multipartFile, AudioFileTypes.ALLOWED_FILE_TYPES);
         BlobFile blobFile = fileTransferService.uploadFile(multipartFile);
         AudioRecording audioRecording = audioRecordingMapper.toAudioRecording(blobFile);
         audioRecording.setMeeting(meeting);

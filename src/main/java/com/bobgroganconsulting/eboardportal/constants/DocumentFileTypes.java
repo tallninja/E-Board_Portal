@@ -5,7 +5,10 @@
  */
 package com.bobgroganconsulting.eboardportal.constants;
 
+import java.util.List;
+
 public interface DocumentFileTypes {
     String PDF = "pdf";
     String DOCX = "docx";
+    List<String> ALLOWED_FILE_TYPES = List.of(PDF, DOCX);
 }

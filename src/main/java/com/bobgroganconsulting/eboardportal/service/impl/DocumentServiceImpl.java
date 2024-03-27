@@ -5,6 +5,7 @@
  */
 package com.bobgroganconsulting.eboardportal.service.impl;
 
+import com.bobgroganconsulting.eboardportal.constants.DocumentFileTypes;
 import com.bobgroganconsulting.eboardportal.domain.entities.Document;
 import com.bobgroganconsulting.eboardportal.domain.entities.Meeting;
 import com.bobgroganconsulting.eboardportal.dtos.BlobFile;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import static com.bobgroganconsulting.eboardportal.service.utils.FileTransferUtils.*;
 
 import java.util.UUID;
 
@@ -59,6 +61,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public DocumentDto upload(UUID meetingId, MultipartFile multipartFile) throws Exception {
         Meeting meeting = meetingService.findOne(meetingId);
+        assertFileTypeIsValid(multipartFile, DocumentFileTypes.ALLOWED_FILE_TYPES);
         BlobFile blobFile = fileTransferService.uploadFile(multipartFile);
         Document document = documentMapper.toDocument(blobFile);
         document.setMeeting(meeting);

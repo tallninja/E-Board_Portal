@@ -5,8 +5,11 @@
  */
 package com.bobgroganconsulting.eboardportal.constants;
 
+import java.util.List;
+
 public interface VideoFileTypes {
     String MP4 = "mp4";
     String MPEG = "mpeg";
-    String mov = "mov";
+    String MOV = "mov";
+    List<String> ALLOWED_FILE_TYPES = List.of(MP4, MPEG, MOV);
 }

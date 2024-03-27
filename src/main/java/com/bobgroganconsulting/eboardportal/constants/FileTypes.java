@@ -8,7 +8,6 @@ package com.bobgroganconsulting.eboardportal.constants;
 import java.util.List;
 
 public interface FileTypes {
-
     String MP3 = "mp3";
     String WAV = "wav";
     String REC = "rec";
@@ -18,5 +17,4 @@ public interface FileTypes {
     String PDF = "pdf";
     String DOCX = "docx";
     List<String> ALLOWED_FILE_TYPES = List.of(MP3, WAV, REC, MP4, MPEG, MOV, PDF, DOCX);
-
 }

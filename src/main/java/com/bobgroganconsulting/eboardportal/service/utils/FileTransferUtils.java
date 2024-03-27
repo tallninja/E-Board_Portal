@@ -5,6 +5,7 @@
  */
 package com.bobgroganconsulting.eboardportal.service.utils;
 
+import com.bobgroganconsulting.eboardportal.constants.AudioFileTypes;
 import com.bobgroganconsulting.eboardportal.constants.FileTypes;
 import com.bobgroganconsulting.eboardportal.exceptions.FileSizeException;
 import com.bobgroganconsulting.eboardportal.exceptions.FileTypeException;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class FileTransferUtils {
@@ -23,7 +25,7 @@ public class FileTransferUtils {
     public static void assertFileIsValid(MultipartFile multipartFile) {
         assertFileIsNotEmpty(multipartFile);
         assertFileNameIsValid(multipartFile);
-        assertFileTypeIsValid(multipartFile);
+        assertFileTypeIsValid(multipartFile, FileTypes.ALLOWED_FILE_TYPES);
     }
 
     public static void assertFileIsNotEmpty(MultipartFile multipartFile) {
@@ -39,9 +41,9 @@ public class FileTransferUtils {
         }
     }
 
-    public static void assertFileTypeIsValid(MultipartFile multipartFile) {
+    public static void assertFileTypeIsValid(MultipartFile multipartFile, List<String> allowedFileTypes) {
         String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-        if (!FileTypes.ALLOWED_FILE_TYPES.contains(fileExtension)) {
+        if (!allowedFileTypes.contains(fileExtension)) {
             throw new FileTypeException(fileExtension);
         }
     }
