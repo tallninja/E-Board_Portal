@@ -5,3 +5,4 @@ export * from './Documents';
 export * from './Audios';
 export * from './Videos';
 export * from './Users';
+export * from './Login.tsx';

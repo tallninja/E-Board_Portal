@@ -20,7 +20,7 @@ export function Branding({ colorTheme }: Props) {
 			<img
 				src={darkMode ? IMAGES.whiteLogo : IMAGES.blackLogo}
 				className='h-8 me-3'
-				alt='FlowBite Logo'
+				alt='Logo'
 			/>
 			<span className='self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white'>
 				Bob Grogan

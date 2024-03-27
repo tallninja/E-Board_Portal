@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
 	Audios,
 	DashBoard,
-	Documents,
+	Documents, Login,
 	Meetings,
 	PageNotFound,
 	Users,
@@ -12,6 +12,10 @@ import { useTheme } from './hooks';
 import { Wrapper } from './components';
 
 const router = createBrowserRouter([
+	{
+		path: '/auth/login',
+		element: <Login />
+	},
 	{
 		path: '/dashboard',
 		element: <Wrapper />,
