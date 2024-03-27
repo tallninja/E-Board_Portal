@@ -9,15 +9,20 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Data
 @Builder
 public class MeetingDto {
 
+    private UUID id;
     private String title;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

@@ -31,7 +31,7 @@ public class VideoRecordingController {
     @GetMapping(name = "GetVideoRecordings")
     public ResponseEntity<Page<VideoRecordingDto>> getVideoRecordings(
             @RequestParam(name = "meeting_id", required = false) UUID meetingId,
-            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
             @RequestParam(name = "sort_direction", defaultValue = "desc") String sortDirection,
             @RequestParam(name = "sort_by", defaultValue = "createdAt") String sortBy

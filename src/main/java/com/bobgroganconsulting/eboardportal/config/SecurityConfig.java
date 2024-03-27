@@ -45,13 +45,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/**").permitAll();
                     auth.requestMatchers("/api/auth/register").permitAll();
                     auth.requestMatchers("/api/auth/login").permitAll();
                     auth.requestMatchers("/api/auth/logout").permitAll();
                     auth.requestMatchers("/auth/refresh-token").permitAll();
                     auth.requestMatchers("/api/**").hasAuthority("ROLE_USER");
-                    auth.anyRequest().authenticated();
+                    auth.requestMatchers("/**").permitAll();
                 })
                 .userDetailsService(userDetailsService)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))

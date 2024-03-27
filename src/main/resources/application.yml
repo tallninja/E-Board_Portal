@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: '${SPRING_PROFILES_ACTIVE}'
+  servlet:
+    multipart:
+      max-file-size: '1GB'
 
 # SERVER CONFIG
 server:
@@ -10,3 +13,4 @@ server:
       enabled: false
 #  servlet:
 #    context-path: '/api'
+
