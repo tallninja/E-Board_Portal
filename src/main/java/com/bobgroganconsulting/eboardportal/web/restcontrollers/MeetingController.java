@@ -21,7 +21,7 @@ import java.net.URI;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "api/meetings", name = "Meetings")
+@RequestMapping("api/meetings")
 public class MeetingController {
 
     private final MeetingService meetingService;

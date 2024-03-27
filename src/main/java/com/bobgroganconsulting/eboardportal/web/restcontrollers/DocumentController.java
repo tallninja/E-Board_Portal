@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "api/documents", name = "Documents")
+@RequestMapping("api/documents")
 public class DocumentController {
 
     private final DocumentService documentService;
@@ -27,7 +27,7 @@ public class DocumentController {
         this.documentService = documentService;
     }
 
-    @GetMapping(name = "GetDocuments")
+    @GetMapping
     public ResponseEntity<Page<DocumentDto>> getDocuments(
             @RequestParam(name = "meeting_id", required = false) UUID meetingId,
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -45,13 +45,13 @@ public class DocumentController {
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{id}", name = "GetDocument")
+    @GetMapping("{id}")
     public ResponseEntity<DocumentDto> getDocument(@PathVariable UUID id) {
         DocumentDto document = documentService.findById(id);
         return new ResponseEntity<>(document, HttpStatus.OK);
     }
 
-    @PostMapping(value = "upload", name = "UploadDocument")
+    @PostMapping("upload")
     public ResponseEntity<DocumentDto> uploadDocument(
             @RequestParam("meeting_id") UUID meetingId,
             @RequestParam("file") MultipartFile multipartFile
@@ -60,7 +60,7 @@ public class DocumentController {
         return ResponseEntity.created(document.getUri()).body(document);
     }
 
-    @DeleteMapping(value = "{id}", name = "DeleteDocument")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteDocument(@PathVariable UUID id) {
         documentService.delete(id);
         return ResponseEntity.noContent().build();

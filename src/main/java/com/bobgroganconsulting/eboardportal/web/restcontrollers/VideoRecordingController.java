@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "api/video_recordings", name = "VideoRecordings")
+@RequestMapping("api/video_recordings")
 public class VideoRecordingController {
 
     private final VideoRecordingService videoRecordingService;
@@ -28,7 +28,7 @@ public class VideoRecordingController {
         this.videoRecordingService = videoRecordingService;
     }
 
-    @GetMapping(name = "GetVideoRecordings")
+    @GetMapping
     public ResponseEntity<Page<VideoRecordingDto>> getVideoRecordings(
             @RequestParam(name = "meeting_id", required = false) UUID meetingId,
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -46,13 +46,13 @@ public class VideoRecordingController {
         return new ResponseEntity<>(videoRecordings, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{id}", name = "GetVideoRecording")
+    @GetMapping("{id}")
     public ResponseEntity<VideoRecordingDto> getVideoRecording(@PathVariable UUID id) {
         VideoRecordingDto videoRecording = videoRecordingService.findById(id);
         return new ResponseEntity<>(videoRecording, HttpStatus.OK);
     }
 
-    @PostMapping(value = "upload", name = "UploadVideoRecording")
+    @PostMapping("upload")
     public ResponseEntity<VideoRecordingDto> uploadVideoRecording(
             @RequestParam("meeting_id") UUID meetingId,
             @RequestParam("file") MultipartFile multipartFile
@@ -61,7 +61,7 @@ public class VideoRecordingController {
         return ResponseEntity.created(videoRecording.getUri()).body(videoRecording);
     }
 
-    @DeleteMapping(value = "{id}", name = "DeleteVideoRecording")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteVideoRecording(@PathVariable UUID id) {
         videoRecordingService.delete(id);
         return ResponseEntity.noContent().build();

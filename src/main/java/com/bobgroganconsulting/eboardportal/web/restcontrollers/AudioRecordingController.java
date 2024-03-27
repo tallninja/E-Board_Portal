@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "api/audio_recordings", name = "AudioRecordings")
+@RequestMapping("api/audio_recordings")
 public class AudioRecordingController {
 
     private final AudioRecordingService audioRecordingService;
@@ -27,7 +27,7 @@ public class AudioRecordingController {
         this.audioRecordingService = audioRecordingService;
     }
 
-    @GetMapping(name = "GetAudioRecordings")
+    @GetMapping
     public ResponseEntity<Page<AudioRecordingDto>> getAudioRecordings(
             @RequestParam(name = "meeting_id", required = false) UUID meetingId,
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -45,13 +45,13 @@ public class AudioRecordingController {
         return new ResponseEntity<>(audioRecordings, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{id}", name = "GetAudioRecording")
+    @GetMapping("{id}")
     public ResponseEntity<AudioRecordingDto> getAudioRecording(@PathVariable UUID id) {
         AudioRecordingDto audioRecording = audioRecordingService.findById(id);
         return new ResponseEntity<>(audioRecording, HttpStatus.OK);
     }
 
-    @PostMapping(value = "upload", name = "UploadAudioRecording")
+    @PostMapping("upload")
     public ResponseEntity<AudioRecordingDto> uploadAudioRecording(
             @RequestParam("meeting_id") UUID meetingId,
             @RequestParam("file") MultipartFile multipartFile
@@ -60,7 +60,7 @@ public class AudioRecordingController {
         return ResponseEntity.created(audioRecording.getUri()).body(audioRecording);
     }
 
-    @DeleteMapping(value = "{id}", name = "DeleteAudioRecording")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteAudioRecording(@PathVariable UUID id) {
         audioRecordingService.delete(id);
         return ResponseEntity.noContent().build();
