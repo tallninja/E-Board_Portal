@@ -8,3 +8,5 @@ server:
   error:
     whitelabel:
       enabled: false
+#  servlet:
+#    context-path: '/api'

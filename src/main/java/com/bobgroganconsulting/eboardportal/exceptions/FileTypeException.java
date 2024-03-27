@@ -6,7 +6,7 @@
 package com.bobgroganconsulting.eboardportal.exceptions;
 
 public class FileTypeException extends FileTransferException {
-    public FileTypeException(String message) {
-        super(message);
+    public FileTypeException(String fileType) {
+        super("Invalid file type " + fileType + ".");
     }
 }

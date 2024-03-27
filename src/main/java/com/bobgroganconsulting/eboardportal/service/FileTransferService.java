@@ -5,7 +5,7 @@
  */
 package com.bobgroganconsulting.eboardportal.service;
 
-import com.bobgroganconsulting.eboardportal.domain.BlobFile;
+import com.bobgroganconsulting.eboardportal.dtos.BlobFile;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileTransferService {

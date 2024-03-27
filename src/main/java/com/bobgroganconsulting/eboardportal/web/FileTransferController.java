@@ -5,13 +5,12 @@
  */
 package com.bobgroganconsulting.eboardportal.web;
 
-import com.bobgroganconsulting.eboardportal.domain.BlobFile;
+import com.bobgroganconsulting.eboardportal.dtos.BlobFile;
 import com.bobgroganconsulting.eboardportal.exceptions.FileSizeException;
 import com.bobgroganconsulting.eboardportal.service.FileTransferService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

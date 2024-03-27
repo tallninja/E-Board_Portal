@@ -7,67 +7,58 @@ package com.bobgroganconsulting.eboardportal.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import com.bobgroganconsulting.eboardportal.domain.BlobFile;
+import com.bobgroganconsulting.eboardportal.dtos.BlobFile;
 import com.bobgroganconsulting.eboardportal.exceptions.FileDownloadException;
 import com.bobgroganconsulting.eboardportal.service.FileTransferService;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
+import static com.bobgroganconsulting.eboardportal.service.utils.FileTransferUtils.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class FileTransferServiceImpl implements FileTransferService {
+public class S3FileTransferServiceImpl implements FileTransferService {
 
     @Value("${aws.s3.bucketName}")
     private String bucketName;
 
     private final AmazonS3 s3;
 
-    public FileTransferServiceImpl(AmazonS3 s3) {
+    public S3FileTransferServiceImpl(AmazonS3 s3) {
         this.s3 = s3;
     }
 
     @Override
     public BlobFile uploadFile(MultipartFile multipartFile) throws Exception {
-        Assert.notNull(multipartFile.getOriginalFilename(), "");
+        assertFileIsValid(multipartFile);
 
         // Convert multipart file to a file
-        File file = new File(multipartFile.getOriginalFilename());
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            fileOutputStream.write(multipartFile.getBytes());
-        }
-
-        // Generate file name
+        File file = convertMultipartFileToFile(multipartFile);
         String fileName = generateFileName(multipartFile);
-        String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+        String fileExtension = getFileExtension(multipartFile);
         long fileSize = file.length();
 
         // Upload file to S3 bucket
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file);
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("plain/" + fileExtension);
-        metadata.addUserMetadata("Title", "File Upload - " + fileName);
-        metadata.setContentLength(fileSize);
-        putObjectRequest.setMetadata(metadata);
-        s3.putObject(putObjectRequest);
+        uploadFileToS3Bucket(file, fileName, fileExtension, fileSize);
 
         // Delete file
         file.delete();
 
+        //https://bg-blob-repository.s3.af-south-1.amazonaws.com/1710261797939-test_file.txt
+        URI uri = URI.create("https://" + bucketName + ".s3." + s3.getRegionName() + ".amazonaws.com/" + fileName);
         return BlobFile.builder()
                 .fileName(fileName)
                 .fileType(fileExtension)
                 .fileSize(fileSize)
+                .uri(uri)
                 .build();
     }
 
@@ -112,6 +103,16 @@ public class FileTransferServiceImpl implements FileTransferService {
         return false;
     }
 
+    private void uploadFileToS3Bucket(File file, String fileName, String fileExtension, long fileSize) {
+        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file);
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType("plain/" + fileExtension);
+        metadata.addUserMetadata("Title", "File Upload - " + fileName);
+        metadata.setContentLength(fileSize);
+        putObjectRequest.setMetadata(metadata);
+        s3.putObject(putObjectRequest);
+    }
+
     private boolean bucketIsEmpty() {
         ListObjectsV2Result result = s3.listObjectsV2(bucketName);
 
@@ -123,10 +124,4 @@ public class FileTransferServiceImpl implements FileTransferService {
         return blobs.isEmpty();
     }
 
-    private String generateFileName(MultipartFile multipartFile) {
-        Assert.notNull(multipartFile.getOriginalFilename(), "");
-        return new Date().getTime() + "-" + multipartFile
-                .getOriginalFilename()
-                .replace(" ", "_");
-    }
 }

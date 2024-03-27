@@ -1,0 +1,27 @@
+@BASE_URL=http://localhost:8080/api
+
+###
+POST {{BASE_URL}}/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Ernest",
+  "middleName": "Wambua",
+  "lastName": "Mutisya",
+  "email": "ernestwambua2@gmail.com",
+  "phoneNumber": "+254719286396",
+  "password": "password"
+}
+
+###
+POST {{BASE_URL}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "ernestwambua2@gmail.com",
+  "password": "password"
+}
+
+###
+GET {{BASE_URL}}/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiZXJuZXN0d2FtYnVhMkBnbWFpbC5jb20iLCJleHAiOjE3MTA0ODk2MjMsImlhdCI6MTcxMDQ4OTMyMywic2NvcGUiOiJST0xFX1VTRVIifQ.YhdX1ecvg0_dJ49Eva0Pw6bTSnWL1sfXqcZN9FCo-cYpoFT-K6_fFpitJJwcc9SMTcRMA5YpnkqdvRAcK7xP_w
