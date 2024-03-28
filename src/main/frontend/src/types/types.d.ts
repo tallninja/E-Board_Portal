@@ -39,3 +39,10 @@ interface User {
 	email: string;
 	phoneNumber: string;
 }
+
+interface AuthUser {
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
+}
