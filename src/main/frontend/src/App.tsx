@@ -25,19 +25,23 @@ const router = createBrowserRouter([
 				element: <Protected />,
 				children: [
 					{
-						path: '/dashboard',
-						element: <Wrapper />,
+						element: <Wrapper/>,
 						children: [
-							{ index: true, element: <DashBoard /> },
-							{ path: 'meetings', element: <Meetings /> },
-							{ path: 'media/documents', element: <Documents /> },
-							{ path: 'media/audios', element: <Audios /> },
-							{ path: 'media/videos', element: <Videos /> },
-							{ path: 'users', element: <Users /> },
+							{
+								path: '/dashboard',
+								children: [
+									{index: true, element: <DashBoard/>},
+									{path: 'meetings', element: <Meetings/>},
+									{path: 'media/documents', element: <Documents/>},
+									{path: 'media/audios', element: <Audios/>},
+									{path: 'media/videos', element: <Videos/>},
+									{path: 'users', element: <Users/>},
+								]
+							}
 						],
-					},
+					}
 				]
-			}
+			},
 		]
 	},
 	{ path: '*', element: <PageNotFound /> },

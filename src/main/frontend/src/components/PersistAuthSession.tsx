@@ -1,10 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store.ts";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {useGetAuthUserQuery} from "../services/auth.ts";
 import {login, logout, setAuthUser} from "../features";
 import {Outlet} from "react-router-dom";
 import {toast} from "react-toastify";
+import {initFlowbite} from "flowbite";
 
 export function PersistAuthSession() {
     const dispatch = useDispatch();
@@ -14,8 +15,9 @@ export function PersistAuthSession() {
     useEffect(() => {
         let isMounted = true;
         dispatch(login(authUser!))
+        initFlowbite();
         return () => {isMounted = false};
-    }, [auth, authUser]);
+    }, [authUser, dispatch]);
 
     if (isError) {
         dispatch(logout())
@@ -24,11 +26,9 @@ export function PersistAuthSession() {
     return (
         <>
             {
-                auth.authenticated
-                    ? <Outlet />
-                    : isLoading
-                        ? <p>Loading...</p>
-                        : <Outlet />
+                isLoading
+                    ? <p>Loading...</p>
+                    : auth.authenticated && <Outlet />
             }
         </>
     )
