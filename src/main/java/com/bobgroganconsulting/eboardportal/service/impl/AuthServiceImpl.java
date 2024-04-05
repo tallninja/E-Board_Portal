@@ -14,6 +14,7 @@ import com.bobgroganconsulting.eboardportal.dtos.query.TokensDto;
 import com.bobgroganconsulting.eboardportal.dtos.query.UserDto;
 import com.bobgroganconsulting.eboardportal.exceptions.ForbiddenException;
 import com.bobgroganconsulting.eboardportal.exceptions.RefreshTokenExpiredException;
+import com.bobgroganconsulting.eboardportal.exceptions.RefreshTokenInvalidException;
 import com.bobgroganconsulting.eboardportal.mapping.UserMapper;
 import com.bobgroganconsulting.eboardportal.repository.RefreshTokenRepository;
 import com.bobgroganconsulting.eboardportal.service.AuthService;
@@ -93,11 +94,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokensDto refreshAccessToken(UUID refreshToken) {
-        Optional<RefreshToken> token = refreshTokenRepository.findById(refreshToken);
-        if (token.isEmpty()) {
-            throw new ForbiddenException("User not authenticated, please login.");
-        }
-        RefreshToken validToken = verifyRefreshToken(token.get());
+        RefreshToken validToken = verifyRefreshToken(refreshToken);
         Jwt accessToken = generateAccessToken(validToken.getUser());
 
         Assert.notNull(accessToken.getExpiresAt(), "");
@@ -164,12 +161,14 @@ public class AuthServiceImpl implements AuthService {
         ));
     }
 
-    public RefreshToken verifyRefreshToken(RefreshToken refreshToken) {
-        if (refreshToken.getExpiresAt() - Instant.now().getEpochSecond() < 0) {
-            refreshTokenRepository.delete(refreshToken);
-            throw new RefreshTokenExpiredException("Refresh token expired, please login again.");
+    public RefreshToken verifyRefreshToken(UUID refreshToken) {
+        RefreshToken token = refreshTokenRepository.findById(refreshToken)
+                .orElseThrow(() -> new RefreshTokenInvalidException());
+        if (token.getExpiresAt() - Instant.now().getEpochSecond() < 0) {
+            refreshTokenRepository.delete(token);
+            throw new RefreshTokenExpiredException();
         }
-        return refreshToken;
+        return token;
     }
 
 }

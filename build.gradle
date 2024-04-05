@@ -75,8 +75,8 @@ tasks.register("copyFrontend", Copy) {
 npmRunDev.dependsOn(npmInstallVite, npmInstallTypescript, npmInstall)
 npmBuild.dependsOn(npmInstallVite, npmInstallTypescript, npmInstall)
 copyFrontend.dependsOn(npmBuild)
-processResources.dependsOn(copyFrontend)
-compileJava.dependsOn(npmBuild)
+//processResources.dependsOn(copyFrontend)
+//compileJava.dependsOn(npmBuild)
 
 tasks.named('test') {
 	useJUnitPlatform()

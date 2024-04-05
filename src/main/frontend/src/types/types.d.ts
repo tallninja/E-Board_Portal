@@ -42,7 +42,25 @@ interface User {
 
 interface AuthUser {
 	firstName: string;
+	middleName: string;
 	lastName: string;
+	fullName: string;
 	email: string;
 	phoneNumber: string;
+}
+
+interface Tokens {
+	accessToken: string,
+	refreshToken: string,
+	expires: number
+}
+
+interface LoginResponse {
+	user: AuthUser,
+	tokens: Tokens
+}
+
+interface LoginRequest {
+	email: string,
+	password: string
 }

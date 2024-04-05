@@ -1,20 +1,39 @@
 import { useState } from 'react';
-import { useTheme } from '../../hooks';
-import { HamburgerIcon, MoonIcon, SunIcon } from '../icons';
+import {useLocalStorage, useTheme} from '../../hooks';
+import {HamburgerIcon, LogoutIcon, MoonIcon, SunIcon} from '../icons';
 import { Branding } from '../Branding';
-import { UserMenu } from './UserMenu';
-import IMAGES from '../../assets.ts';
+// import { UserMenu } from './UserMenu';
+// import IMAGES from '../../assets.ts';
+import {authApi, authApiWithAuth, useLogoutUserMutation} from "../../services/auth.ts";
+import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store.ts";
+import {useNavigate} from "react-router-dom";
+import {logout} from "../../features";
 
 export function Navbar() {
 	const [colorTheme, setTheme] = useTheme();
 	const [darkMode, setDarkMode] = useState(
 		colorTheme === 'light'
 	);
+	const [logoutUser, result] = useLogoutUserMutation();
+	const dispatch = useDispatch();
+	const [_, setAccessToken] = useLocalStorage<string>("a_t", "");
+	const [__, setRefreshToken] = useLocalStorage<string>("r_t", "");
 
 	const toggleDarkMode = (checked: boolean) => {
 		setTheme(colorTheme);
 		setDarkMode(checked);
 	};
+
+	const handleLogout = async () => {
+		console.log("LOGOUT!!!")
+		// noinspection TypeScriptUnresolvedReference
+		await logoutUser();
+		setAccessToken(null);
+		setRefreshToken(null);
+		dispatch(logout());
+	}
 
 	return (
 		<nav className='fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700'>
@@ -42,21 +61,24 @@ export function Navbar() {
 					<div className='flex items-center'>
 						<div className='flex items-center ms-3'>
 							<div>
-								<button
-									type='button'
-									className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600'
-									aria-expanded='false'
-									data-dropdown-toggle='dropdown-user'
-								>
-									<span className='sr-only'>Open user menu</span>
-									<img
-										className='w-8 h-8 rounded-full'
-										src={IMAGES.profile}
-										alt='user photo'
-									/>
+								<button onClick={handleLogout}>
+									<LogoutIcon />
 								</button>
+								{/*<button*/}
+								{/*	type='button'*/}
+								{/*	className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600'*/}
+								{/*	aria-expanded='false'*/}
+								{/*	data-dropdown-toggle='dropdown-user'*/}
+								{/*>*/}
+								{/*	<span className='sr-only'>Open user menu</span>*/}
+								{/*	<img*/}
+								{/*		className='w-8 h-8 rounded-full'*/}
+								{/*		src={IMAGES.profile}*/}
+								{/*		alt='user photo'*/}
+								{/*	/>*/}
+								{/*</button>*/}
 							</div>
-							<UserMenu />
+							{/*<UserMenu />*/}
 						</div>
 					</div>
 				</div>

@@ -14,3 +14,4 @@ export * from './FilePdfIcon';
 export * from './DropdownIcon';
 export * from './ClockIcon';
 export * from './SearchIcon';
+export * from './LogoutIcon';

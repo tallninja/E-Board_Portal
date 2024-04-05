@@ -9,7 +9,9 @@ import {
 	Videos,
 } from './pages';
 import { useTheme } from './hooks';
-import { Wrapper } from './components';
+import {PersistAuthSession, Protected, Wrapper} from './components';
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
 	{
@@ -17,26 +19,37 @@ const router = createBrowserRouter([
 		element: <Login />
 	},
 	{
-		path: '/dashboard',
-		element: <Wrapper />,
+		element: <PersistAuthSession />,
 		children: [
-			{ index: true, element: <DashBoard /> },
-			{ path: 'meetings', element: <Meetings /> },
-			{ path: 'media/documents', element: <Documents /> },
-			{ path: 'media/audios', element: <Audios /> },
-			{ path: 'media/videos', element: <Videos /> },
-			{ path: 'users', element: <Users /> },
-		],
+			{
+				element: <Protected />,
+				children: [
+					{
+						path: '/dashboard',
+						element: <Wrapper />,
+						children: [
+							{ index: true, element: <DashBoard /> },
+							{ path: 'meetings', element: <Meetings /> },
+							{ path: 'media/documents', element: <Documents /> },
+							{ path: 'media/audios', element: <Audios /> },
+							{ path: 'media/videos', element: <Videos /> },
+							{ path: 'users', element: <Users /> },
+						],
+					},
+				]
+			}
+		]
 	},
 	{ path: '*', element: <PageNotFound /> },
 ]);
 
 function App() {
-	useTheme();
+	const [theme, _] = useTheme();
 
 	return (
 		<>
 			<RouterProvider router={router} />
+			<ToastContainer theme={theme === 'light' ? 'dark' : 'light'} />
 		</>
 	);
 }

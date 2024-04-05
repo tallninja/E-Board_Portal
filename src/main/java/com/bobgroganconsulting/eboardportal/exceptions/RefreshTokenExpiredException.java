@@ -7,7 +7,7 @@ package com.bobgroganconsulting.eboardportal.exceptions;
 
 public class RefreshTokenExpiredException extends ForbiddenException {
 
-    public RefreshTokenExpiredException(String message) {
-        super(message);
+    public RefreshTokenExpiredException() {
+        super("Refresh token expired, please login again.");
     }
 }

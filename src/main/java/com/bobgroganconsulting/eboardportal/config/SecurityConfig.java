@@ -47,14 +47,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/auth/register").permitAll();
                     auth.requestMatchers("/api/auth/login").permitAll();
-                    auth.requestMatchers("/api/auth/logout").permitAll();
-                    auth.requestMatchers("/auth/refresh-token").permitAll();
+//                    auth.requestMatchers("/api/auth/logout").permitAll();
+                    auth.requestMatchers("/api/auth/refresh-token").permitAll();
                     auth.requestMatchers("/api/**").hasAuthority("ROLE_USER");
                     auth.requestMatchers("/**").permitAll();
                 })
                 .userDetailsService(userDetailsService)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-                .logout(configurer -> configurer.logoutUrl("/auth/logout"))
+                .logout(configurer -> {
+                    configurer.logoutUrl("/api/auth/logout");
+                    configurer.logoutSuccessUrl("/api/auth/profile");
+                })
                 .build();
     }
 
