@@ -87,6 +87,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public void logoutUser() {
+        UserDto user = getAuthenticatedUser();
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findByUserId(user.getId());
+        refreshToken.ifPresent(refreshTokenRepository::delete);
+    }
+
+    @Override
     public UserDto getAuthenticatedUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userService.findByEmail(email);

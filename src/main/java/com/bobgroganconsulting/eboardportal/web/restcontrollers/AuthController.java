@@ -11,10 +11,14 @@ import com.bobgroganconsulting.eboardportal.dtos.query.LoginResponse;
 import com.bobgroganconsulting.eboardportal.dtos.query.TokensDto;
 import com.bobgroganconsulting.eboardportal.dtos.query.UserDto;
 import com.bobgroganconsulting.eboardportal.service.AuthService;
+import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -51,9 +55,15 @@ public class AuthController {
         return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
     }
 
-    @GetMapping("/refresh-token")
+    @GetMapping("refresh-token")
     private ResponseEntity<TokensDto> refreshToken(@RequestParam(name = "token") UUID refreshToken) throws Exception {
         return ResponseEntity.ok().body(authService.refreshAccessToken(refreshToken));
+    }
+
+    @PostMapping("logout")
+    private ResponseEntity<?> logout(HttpServletRequest request) {
+        authService.logoutUser();
+        return ResponseEntity.noContent().build();
     }
 
 }
