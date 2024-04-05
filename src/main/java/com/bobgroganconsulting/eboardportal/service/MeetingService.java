@@ -18,6 +18,7 @@ public interface MeetingService {
 
     Page<MeetingDto> findAll(Pageable pageable);
     MeetingDto findById(UUID id);
+    long getCount();
     MeetingDto create(CreateMeetingDto meetingDto);
     MeetingDto update(UUID id, UpdateMeetingDto meetingDto);
     void delete(UUID id);

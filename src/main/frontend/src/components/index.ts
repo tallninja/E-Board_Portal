@@ -4,5 +4,6 @@ export * from './Wrapper';
 export * from './tables';
 export * from './Branding';
 export * from './Content';
-export * from './Protected'
-export * from './PersistAuthSession'
+export * from './Protected';
+export * from './PersistAuthSession';
+export * from './StatsCard.tsx';

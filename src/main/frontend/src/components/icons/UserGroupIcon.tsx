@@ -6,8 +6,8 @@ export function UserGroupIcon({ className }: Props) {
 	return (
 		<svg
 			className={
-				className ||
-				'flex-shrink w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
+				className +
+				'flex-shrink transition duration-75 group-hover:text-gray-900 dark:group-hover:text-white'
 			}
 			aria-hidden='true'
 			xmlns='http://www.w3.org/2000/svg'

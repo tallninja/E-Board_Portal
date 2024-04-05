@@ -45,17 +45,8 @@ dependencies {
 
 node {
     download = true
-    version = "20.11.1"
-	npmWorkDir = file("${project.projectDir}/.gradle/npm")
+    version = "20.12.1"
 	nodeProjectDir = file("${project.projectDir}/src/main/frontend")
-}
-
-tasks.register('npmInstallTypescript', NpmTask) {
-	args = ["install", "-g", "typescript"]
-}
-
-tasks.register('npmInstallVite', NpmTask) {
-	args = ["install", "-g", "vite"]
 }
 
 tasks.register('npmRunDev', NpmTask) {
@@ -72,8 +63,8 @@ tasks.register("copyFrontend", Copy) {
     into "${project.projectDir}/build/resources/main/static"
 }
 
-npmRunDev.dependsOn(npmInstallVite, npmInstallTypescript, npmInstall)
-npmBuild.dependsOn(npmInstallVite, npmInstallTypescript, npmInstall)
+npmRunDev.dependsOn(npmInstall)
+npmBuild.dependsOn(npmInstall)
 copyFrontend.dependsOn(npmBuild)
 //processResources.dependsOn(copyFrontend)
 //compileJava.dependsOn(npmBuild)

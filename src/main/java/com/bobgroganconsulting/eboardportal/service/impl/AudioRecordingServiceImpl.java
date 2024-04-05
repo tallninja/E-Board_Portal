@@ -53,6 +53,11 @@ public class AudioRecordingServiceImpl implements AudioRecordingService {
     }
 
     @Override
+    public long getCount() {
+        return audioRecordingRepository.count();
+    }
+
+    @Override
     public AudioRecordingDto findById(UUID id) {
         AudioRecording audioRecording = findOne(id);
         return audioRecordingMapper.toAudioRecordingDto(audioRecording);

@@ -53,6 +53,11 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public long getCount() {
+        return documentRepository.count();
+    }
+
+    @Override
     public DocumentDto findById(UUID id) {
         Document document = findOne(id);
         return documentMapper.toDocumentDto(document);

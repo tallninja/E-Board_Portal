@@ -28,7 +28,7 @@ export function Sidebar() {
 						<NavItem
 							text='Meetings'
 							to='/dashboard/meetings'
-							icon={<UserGroupIcon />}
+							icon={<UserGroupIcon className="w-6 h-6 text-gray-500  dark:text-gray-400" />}
 						/>
 					</li>
 					<li>
@@ -49,28 +49,31 @@ export function Sidebar() {
 								<NavItem
 									text='Documents'
 									to='/dashboard/media/documents'
-									icon={<FilePdfIcon />}
+									icon={<FilePdfIcon className="w-6 h-6 text-gray-500  dark:text-gray-400" />}
 								/>
 							</li>
 							<li>
 								<NavItem
 									text='Audio Recordings'
 									to='/dashboard/media/audios'
-									icon={<AudioIcon />}
+									icon={<AudioIcon className="w-6 h-6 text-gray-500  dark:text-gray-400" />}
 								/>
 							</li>
 							<li>
 								<NavItem
 									text='Video Recordings'
 									to='/dashboard/media/videos'
-									icon={<VideoIcon />}
+									icon={<VideoIcon className="w-6 h-6 text-gray-500  dark:text-gray-400" />}
 								/>
 							</li>
 						</ul>
 					</li>
 
 					<li>
-						<NavItem text='Users' to='/dashboard/users' icon={<UsersIcon />} />
+						<NavItem
+							text='Users'
+							to='/dashboard/users'
+							icon={<UsersIcon className="w-6 h-6 text-gray-500 dark:text-gray-400" />} />
 					</li>
 				</ul>
 

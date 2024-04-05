@@ -53,6 +53,11 @@ public class VideoRecordingServiceImpl implements VideoRecordingService {
     }
 
     @Override
+    public long getCount() {
+        return videoRecordingRepository.count();
+    }
+
+    @Override
     public VideoRecordingDto findById(UUID id) {
         VideoRecording videoRecording = findOne(id);
         return videoRecordingMapper.toVideoRecordingDto(videoRecording);

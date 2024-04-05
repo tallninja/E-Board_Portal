@@ -64,3 +64,10 @@ interface LoginRequest {
 	email: string,
 	password: string
 }
+
+interface CountStats {
+	meetings: number;
+	documents: number;
+	audioRecordings: number;
+	videoRecordings: number;
+}

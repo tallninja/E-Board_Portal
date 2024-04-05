@@ -43,6 +43,11 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
+    public long getCount() {
+        return meetingRepository.count();
+    }
+
+    @Override
     public MeetingDto create(CreateMeetingDto meetingDto) {
         Meeting meeting = meetingMapper.toMeeting(meetingDto);
         meetingRepository.save(meeting);
