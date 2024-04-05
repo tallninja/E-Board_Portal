@@ -11,7 +11,15 @@ interface Props {
 
 export function StatsCard({ color, icon, count, text, href } : Props) {
     return (
-        <div className={`max-w-sm bg-${color}-600 rounded-lg shadow-md`}>
+        <div className={`max-w-sm ${ 
+            color === "red" 
+                ? "bg-red-500" 
+                : color === "green" 
+                    ? "bg-green-500" 
+                    : color === "amber" 
+                        ? "bg-amber-500" 
+                        : color === "teal" && "bg-teal-500" 
+        } rounded-lg shadow-md`}>
             <div className="px-6 py-4">
                 <div className="flex items-center justify-between">
                     <h3 className="text-3xl font-bold text-white">{count}</h3>
@@ -19,7 +27,15 @@ export function StatsCard({ color, icon, count, text, href } : Props) {
                 </div>
                 <p className="mt-2 text-lg font-semibold text-white">{text}</p>
             </div>
-            <div className={`px-6 py-2 bg-${color}-700 rounded-b-lg`}>
+            <div className={`px-6 py-2 ${
+                color === "red"
+                    ? "bg-red-600"
+                    : color === "green"
+                        ? "bg-green-600"
+                        : color === "amber"
+                            ? "bg-amber-600"
+                            : color === "teal" && "bg-teal-600"
+            } rounded-b-lg`}>
                 <Link to={href} className="inline-flex items-center text-white hover:underline">
                     More info
                     <svg className="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"

@@ -36,7 +36,7 @@ export function DashBoard() {
 						/>
 						<StatsCard
 							icon={<AudioIcon />}
-							color="yellow"
+							color="amber"
 							count={countStats.audioRecordings}
 							text="Audio Recordings"
 							href="/dasboard/media/audios"
