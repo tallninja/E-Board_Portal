@@ -1,8 +1,5 @@
 import {DashboardStatsCards} from '../components';
 import {DashboardMeetingsTable} from "../components/DashboardMeetingsTable.tsx";
-import {useEffect} from "react";
-import {initFlowbite} from "flowbite";
-import {InitFlowbite} from "../InitFlowbite.tsx";
 
 export function DashBoard() {
 

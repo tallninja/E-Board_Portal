@@ -10,7 +10,7 @@ export function TableFilterSearch() {
 	}, []);
 
 	return (
-		<div className='flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 space-x-4 items-center justify-between pb-4'>
+		<div className='flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 space-x-4 items-center justify-between'>
 			<div>
 				<button
 					id='dropdownRadioButton'

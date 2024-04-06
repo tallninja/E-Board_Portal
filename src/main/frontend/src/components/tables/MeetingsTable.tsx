@@ -1,11 +1,5 @@
-import { TableWrapper } from './TableWrapper';
-import {Modal} from "../Modal.tsx";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useState} from "react";
 import {initFlowbite} from "flowbite";
-import {MeetingForm} from "../forms";
-import {RootState} from "../../store.ts";
-import {useSelector} from "react-redux";
-import {CustomModal} from "../CustomModal.tsx";
 
 interface Props {
 	data: Meeting[];
@@ -105,24 +99,16 @@ function Tbody({ data }: { data: Meeting[] }) {
 }
 
 export function MeetingsTable({ data }: Props) {
-	const [showModal, setShowModal] = useState<boolean>(false);
-
 	useEffect(() => {
 		initFlowbite();
 	}, []);
 
 	return (
-		<>
-			<TableWrapper onCtaButtonClick={() => setShowModal(true)} ctaButtonText="New Meeting" ctaButtonTarget="meeting-form-modal">
-				<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-					<Thead />
-					<Tbody data={data} />
-				</table>
-			</TableWrapper>
-
-			<CustomModal showModal={showModal} setShowModal={setShowModal} id="meeting-form-modal" title="Create New Meeting">
-				<MeetingForm afterSubmit={() => setShowModal(false)} />
-			</CustomModal>
-		</>
+		<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+				<Thead/>
+				<Tbody data={data}/>
+			</table>
+		</div>
 	);
 }
