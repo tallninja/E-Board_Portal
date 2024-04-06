@@ -1,4 +1,11 @@
 import { TableWrapper } from './TableWrapper';
+import {Modal} from "../Modal.tsx";
+import {useEffect, useReducer, useState} from "react";
+import {initFlowbite} from "flowbite";
+import {MeetingForm} from "../forms";
+import {RootState} from "../../store.ts";
+import {useSelector} from "react-redux";
+import {CustomModal} from "../CustomModal.tsx";
 
 interface Props {
 	data: Meeting[];
@@ -47,7 +54,7 @@ function Thead() {
 function Tbody({ data }: { data: Meeting[] }) {
 	return (
 		<tbody>
-			{data.map((meeting) => (
+			{data.map((meeting, idx) => (
 				<tr
 					key={meeting.id}
 					className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
@@ -64,16 +71,16 @@ function Tbody({ data }: { data: Meeting[] }) {
 							</label>
 						</div>
 					</td>
-					<td className='px-6 py-4'>{meeting.id}</td>
+					<td className='px-6 py-4'>{idx + 1}</td>
 					<th
 						scope='row'
 						className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 					>
 						{meeting.title}
 					</th>
-					<td className='px-6 py-4'>{meeting.date.toDateString()}</td>
-					<td className='px-6 py-4'>08:00 am</td>
-					<td className='px-6 py-4'>10:00 am</td>
+					<td className='px-6 py-4'>{meeting.date}</td>
+					<td className='px-6 py-4'>{meeting.startTime}</td>
+					<td className='px-6 py-4'>{meeting.endTime}</td>
 					<td className='px-6 py-4'>
 						<a
 							href='#'
@@ -98,12 +105,24 @@ function Tbody({ data }: { data: Meeting[] }) {
 }
 
 export function MeetingsTable({ data }: Props) {
+	const [showModal, setShowModal] = useState<boolean>(false);
+
+	useEffect(() => {
+		initFlowbite();
+	}, []);
+
 	return (
-		<TableWrapper>
-			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-				<Thead />
-				<Tbody data={data} />
-			</table>
-		</TableWrapper>
+		<>
+			<TableWrapper onCtaButtonClick={() => setShowModal(true)} ctaButtonText="New Meeting" ctaButtonTarget="meeting-form-modal">
+				<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+					<Thead />
+					<Tbody data={data} />
+				</table>
+			</TableWrapper>
+
+			<CustomModal showModal={showModal} setShowModal={setShowModal} id="meeting-form-modal" title="Create New Meeting">
+				<MeetingForm afterSubmit={() => setShowModal(false)} />
+			</CustomModal>
+		</>
 	);
 }

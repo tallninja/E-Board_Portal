@@ -1,1 +1,2 @@
-export * from './auth';
+export * from './authSlice.ts';
+export * from './meetingsSlice.ts';

@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { ClockIcon, DropDownIcon, SearchIcon } from '../icons';
+import {initFlowbite} from "flowbite";
 
 export function TableFilterSearch() {
 	const [fetchLast, setFetchLast] = useState('7d');
 
+	useEffect(() => {
+		initFlowbite();
+	}, []);
+
 	return (
-		<div className='flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4'>
+		<div className='flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 space-x-4 items-center justify-between pb-4'>
 			<div>
 				<button
 					id='dropdownRadioButton'
@@ -138,7 +143,7 @@ export function TableFilterSearch() {
 					type='text'
 					id='table-search'
 					className='block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					placeholder='Search htmlFor items'
+					placeholder='Search for items'
 				/>
 			</div>
 		</div>

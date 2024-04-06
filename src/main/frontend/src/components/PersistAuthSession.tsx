@@ -15,7 +15,6 @@ export function PersistAuthSession() {
     useEffect(() => {
         let isMounted = true;
         dispatch(login(authUser!))
-        initFlowbite();
         return () => {isMounted = false};
     }, [authUser, dispatch]);
 

@@ -1,9 +1,9 @@
 interface Meeting {
-	id: number;
+	id: string;
 	title: string;
 	date: Date;
-	start: number;
-	end: number;
+	startTime: string;
+	endTime: string;
 }
 
 interface Document {
@@ -70,4 +70,11 @@ interface CountStats {
 	documents: number;
 	audioRecordings: number;
 	videoRecordings: number;
+}
+
+interface Page {
+	page?: number,
+	pageSize?: number,
+	sortDirection?: string,
+	sortBy?: string,
 }
