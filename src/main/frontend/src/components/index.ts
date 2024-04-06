@@ -9,3 +9,4 @@ export * from './PersistAuthSession';
 export * from './StatsCard';
 export * from './DashboardStatsCards';
 export * from './forms';
+export * from "./CustomModal.tsx";

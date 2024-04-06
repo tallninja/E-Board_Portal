@@ -6,31 +6,30 @@ interface Meeting {
 	endTime: string;
 }
 
-interface Document {
-	id: number;
-	meetingId: number;
+interface DocumentFile {
+	id: string;
 	fileName: string;
 	fileType: string;
-	pages: number;
 	fileSize: string;
+	uri: string;
 }
 
 interface VideoRecording {
-	id: number;
-	meetingId: number;
+	id: string;
 	fileName: string;
 	fileType: string;
-	duration: string;
 	fileSize: string;
+	duration: number;
+	uri: string;
 }
 
 interface AudioRecording {
-	id: number;
-	meetingId: number;
+	id: string;
 	fileName: string;
 	fileType: string;
-	duration: string;
 	fileSize: string;
+	duration: number;
+	uri: string;
 }
 
 interface User {

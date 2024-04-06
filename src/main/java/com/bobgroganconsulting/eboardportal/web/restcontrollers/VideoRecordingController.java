@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/video_recordings")
+@RequestMapping("api/video-recordings")
 public class VideoRecordingController {
 
     private final VideoRecordingService videoRecordingService;

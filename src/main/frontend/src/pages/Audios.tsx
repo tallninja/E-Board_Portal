@@ -1,24 +1,42 @@
-import { useEffect, useState } from 'react';
-import { AudiosTable } from '../components';
-import { getAudios } from '../data';
+import {toast} from "react-toastify";
+import {AudioRecordingsTable, TableFilterSearch, TableFooter} from '../components';
+import {useGetAudioRecordingsQuery} from "../services";
 
 export function Audios() {
-	const [audioRecordings, setAudioRecordings] = useState<AudioRecording[]>([]);
+	const { isLoading, isError, data } = useGetAudioRecordingsQuery(
+		{
+			page: 0,
+			pageSize: 10,
+		},
+		{
+			pollingInterval: 5000,
+			skipPollingIfUnfocused: true,
+		}
+	);
 
-	useEffect(() => {
-		(async () => {
-			const data: AudioRecording[] = await getAudios();
-			setAudioRecordings(data);
-		})();
-	}, []);
+	if (isLoading) {
+		return <p>Loading...</p>
+	}
+
+	if (isError) {
+		return toast.error("An error occurred!");
+	}
 
 	return (
 		<div className='p-4 sm:ml-64'>
 			<div className='p-4 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg mt-14'>
-				{/* <div className='flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800'>
-					<p className='text-2xl text-gray-400 dark:text-gray-500'>Audios</p>
-				</div> */}
-				<AudiosTable data={audioRecordings} />
+				<div className="mt-4">
+					<div className="flex items-center flex-row justify-between pb-4">
+						<h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+							Audios
+						</h2>
+						<TableFilterSearch/>
+					</div>
+
+					<AudioRecordingsTable data={data.content}/>
+
+					<TableFooter/>
+				</div>
 			</div>
 		</div>
 	);

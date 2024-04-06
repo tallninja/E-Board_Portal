@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 
 interface Props {
-	data: DocumentFile[];
+	data: VideoRecording[];
 }
 
 function Thead() {
@@ -41,18 +41,18 @@ function Thead() {
 	);
 }
 
-function Tbody({data}: { data: DocumentFile[] }) {
+function Tbody({data}: { data: VideoRecording[] }) {
 	return (
 		<tbody>
-			{data.map((document, idx) => (
-				<tr
-					key={document.id}
-					className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
-				>
-					<td className='w-4 p-4'>
-						<div className='flex items-center'>
-							<input
-								id='checkbox-table-search-1'
+		{data.map((video, idx) => (
+			<tr
+				key={video.id}
+				className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
+			>
+				<td className='w-4 p-4'>
+					<div className='flex items-center'>
+						<input
+							id='checkbox-table-search-1'
 								type='checkbox'
 								className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
 							/>
@@ -66,10 +66,10 @@ function Tbody({data}: { data: DocumentFile[] }) {
 						scope='row'
 						className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 					>
-						<Link to={document.uri}>{document.fileName}</Link>
+						<Link to={video.uri}>{video.fileName}</Link>
 					</th>
-					<td className='px-6 py-4'>{document.fileType}</td>
-					<td className='px-6 py-4'>{document.fileSize}</td>
+					<td className='px-6 py-4'>{video.fileType}</td>
+					<td className='px-6 py-4'>{video.fileSize}</td>
 					<td className='px-6 py-4'>
 						<a
 							href='#'
@@ -93,7 +93,7 @@ function Tbody({data}: { data: DocumentFile[] }) {
 	);
 }
 
-export function DocumentsTable({ data }: Props) {
+export function VideoRecordingsTable({ data }: Props) {
 	return (
 		<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
 			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>

@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import {MeetingForm, MeetingsTable} from '../components';
-import {useMeetingsQuery} from "../services/meetings.ts";
 import {toast} from "react-toastify";
-import {TableFooter} from "../components/tables/TableFooter.tsx";
-import {TableFilterSearch} from "../components/tables/TableFilterSearch.tsx";
-import {CustomModal} from "../components/CustomModal.tsx";
+import {useMeetingsQuery} from "../services";
+import {CustomModal, MeetingForm, MeetingsTable, TableFilterSearch, TableFooter} from '../components';
 
 export function Meetings() {
 	const [showModal, setShowModal] = useState<boolean>(false);
@@ -32,7 +29,7 @@ export function Meetings() {
 		<>
 			<div className='p-4 sm:ml-64'>
 				<div className='p-4 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg mt-14'>
-					<div className="mt-4 lg:mt-8">
+					<div className="mt-4">
 						<div className="flex items-center flex-row justify-between pb-4">
 							<h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
 								Meetings

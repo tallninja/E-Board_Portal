@@ -1,24 +1,42 @@
-import { useEffect, useState } from 'react';
-import { getDocuments } from '../data';
-import { DocumentsTable } from '../components';
+import {toast} from "react-toastify";
+import {DocumentsTable, TableFilterSearch, TableFooter} from '../components';
+import {useGetDocumentsQuery} from "../services";
 
 export function Documents() {
-	const [documents, setDocuments] = useState<Document[]>([]);
+	const { isLoading, isError, data } = useGetDocumentsQuery(
+		{
+			page: 0,
+			pageSize: 10,
+		},
+		{
+			pollingInterval: 5000,
+			skipPollingIfUnfocused: true,
+		}
+	);
 
-	useEffect(() => {
-		(async () => {
-			const data: Document[] = await getDocuments();
-			setDocuments(data);
-		})();
-	}, []);
+	if (isLoading) {
+		return <p>Loading...</p>
+	}
+
+	if (isError) {
+		return toast.error("An error occurred!");
+	}
 
 	return (
 		<div className='p-4 sm:ml-64'>
 			<div className='p-4 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg mt-14'>
-				{/* <div className='flexitems-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800'>
-					<p className='text-2xl text-gray-400 dark:text-gray-500'>Documents</p>
-				</div> */}
-				<DocumentsTable data={documents} />
+				<div className="mt-4">
+					<div className="flex items-center flex-row justify-between pb-4">
+						<h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+							Documents
+						</h2>
+						<TableFilterSearch/>
+					</div>
+
+					<DocumentsTable data={data.content}/>
+
+					<TableFooter/>
+				</div>
 			</div>
 		</div>
 	);

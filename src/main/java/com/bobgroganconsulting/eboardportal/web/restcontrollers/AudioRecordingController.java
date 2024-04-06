@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/audio_recordings")
+@RequestMapping("api/audio-recordings")
 public class AudioRecordingController {
 
     private final AudioRecordingService audioRecordingService;

@@ -1,11 +1,17 @@
 // noinspection TypeScriptValidateTypes
 
 import {configureStore} from "@reduxjs/toolkit";
-import {authReducer, meetingsReducer} from "./features";
-import {authApi, authApiWithAuth} from "./services/auth.ts";
 import {setupListeners} from "@reduxjs/toolkit/query";
-import {statsApi} from "./services/stats.ts";
-import {meetingsApi} from "./services/meetings.ts";
+import {authReducer, meetingsReducer} from "./features";
+import {
+    authApi,
+    authApiWithAuth,
+    statsApi,
+    meetingsApi,
+    documentsApi,
+    audioRecordingsApi,
+    videoRecordingsApi
+} from "./services";
 
 export const store = configureStore({
     reducer: {
@@ -14,7 +20,10 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [authApiWithAuth.reducerPath]: authApiWithAuth.reducer,
         [statsApi.reducerPath]: statsApi.reducer,
-        [meetingsApi.reducerPath]: meetingsApi.reducer
+        [meetingsApi.reducerPath]: meetingsApi.reducer,
+        [documentsApi.reducerPath]: documentsApi.reducer,
+        [audioRecordingsApi.reducerPath]: audioRecordingsApi.reducer,
+        [videoRecordingsApi.reducerPath]: videoRecordingsApi.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -22,7 +31,10 @@ export const store = configureStore({
                 authApi.middleware,
                 authApiWithAuth.middleware,
                 statsApi.middleware,
-                meetingsApi.middleware
+                meetingsApi.middleware,
+                documentsApi.middleware,
+                audioRecordingsApi.middleware,
+                videoRecordingsApi.middleware
             )
 });
 

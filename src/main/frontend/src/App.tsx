@@ -2,7 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
 	Audios,
 	DashBoard,
-	Documents, Login,
+	Documents,
+	Login,
 	Meetings,
 	PageNotFound,
 	Users,
