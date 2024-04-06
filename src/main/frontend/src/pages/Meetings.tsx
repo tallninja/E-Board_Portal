@@ -27,7 +27,7 @@ export function Meetings() {
 
 	return (
 		<>
-			<div className='p-4 sm:ml-64 h-screen'>
+			<div className='p-4 sm:ml-64 h-fit'>
 				<div className='p-4 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg mt-14'>
 					<div className="mt-4">
 						<div className="flex items-center flex-row justify-between pb-4">
