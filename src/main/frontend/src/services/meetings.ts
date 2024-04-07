@@ -17,6 +17,12 @@ export const meetingsApi = createApi({
                 method: "GET"
             })
         }),
+        getMeetingBySlug: builder.query<Meeting, string>({
+           query: (slug) => ({
+               url: `meetings/slug/${slug}`,
+               method: "GET"
+           })
+        }),
         createMeeting: builder.mutation<Meeting, Meeting>({
             query: ({ ...body }) => ({
                 url: "meetings",
@@ -27,4 +33,4 @@ export const meetingsApi = createApi({
     })
 })
 
-export const { useMeetingsQuery, useCreateMeetingMutation } = meetingsApi;
+export const { useMeetingsQuery, useGetMeetingBySlugQuery, useCreateMeetingMutation } = meetingsApi;

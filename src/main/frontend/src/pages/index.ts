@@ -6,3 +6,4 @@ export * from './Audios';
 export * from './Videos';
 export * from './Users';
 export * from './Login.tsx';
+export * from './Meeting.tsx';

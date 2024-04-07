@@ -18,6 +18,7 @@ import java.util.UUID;
 public class MeetingDto {
 
     private UUID id;
+    private String slug;
     private String title;
     private LocalDate date;
     private LocalTime startTime;

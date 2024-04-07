@@ -1,5 +1,6 @@
 interface Meeting {
 	id: string;
+	slug: string;
 	title: string;
 	date: Date;
 	startTime: string;

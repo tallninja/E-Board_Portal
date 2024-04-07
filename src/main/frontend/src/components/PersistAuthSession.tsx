@@ -27,7 +27,7 @@ export function PersistAuthSession() {
             {
                 isLoading
                     ? <p>Loading...</p>
-                    : auth.authenticated && <Outlet />
+                    : <Outlet />
             }
         </>
     )

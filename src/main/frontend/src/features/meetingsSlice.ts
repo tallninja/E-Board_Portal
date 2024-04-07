@@ -1,22 +1,22 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 type InitialState = {
-    data: any
+    meeting: Meeting | null
 }
 
 const initialState: InitialState = {
-    data: null
+    meeting: null
 }
 
 export const meetingsSlice = createSlice({
     name: "meetings",
     initialState,
     reducers: {
-        setData: (state, action: PayloadAction<any>) => {
-            state.data = action.payload;
+        setMeeting: (state: InitialState, action: PayloadAction<Meeting>) => {
+            state.meeting = action.payload;
         },
     }
 });
 
-export const {setData} = meetingsSlice.actions;
+export const {setMeeting} = meetingsSlice.actions;
 export const meetingsReducer = meetingsSlice.reducer;

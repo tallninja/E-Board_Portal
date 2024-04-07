@@ -3,7 +3,7 @@ import {
 	Audios,
 	DashBoard,
 	Documents,
-	Login,
+	Login, Meeting,
 	Meetings,
 	PageNotFound,
 	Users,
@@ -32,7 +32,13 @@ const router = createBrowserRouter([
 								path: '/dashboard',
 								children: [
 									{index: true, element: <DashBoard/>},
-									{path: 'meetings', element: <Meetings/>},
+									{
+										path: 'meetings',
+										children: [
+											{index: true, element: <Meetings/>},
+											{path: ':meetingSlug', element: <Meeting/>}
+										]
+									},
 									{path: 'media/documents', element: <Documents/>},
 									{path: 'media/audios', element: <Audios/>},
 									{path: 'media/videos', element: <Videos/>},

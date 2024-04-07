@@ -25,6 +25,9 @@ import java.util.List;
 @EntityListeners(MeetingEntityListener.class)
 public class Meeting extends BaseEntityAudit<Meeting> {
 
+    @Column(name = "slug", nullable = false, unique = true)
+    private String slug;
+
     @Column(name = "title", nullable = false)
     private String title;
 

@@ -42,6 +42,12 @@ public class MeetingController {
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
+    @GetMapping("slug/{slug}")
+    public ResponseEntity<MeetingDto> getMeeting(@PathVariable String slug) {
+        MeetingDto meeting = meetingService.findBySlug(slug);
+        return new ResponseEntity<>(meeting, HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<MeetingDto> getMeeting(@PathVariable UUID id) {
         MeetingDto meeting = meetingService.findById(id);

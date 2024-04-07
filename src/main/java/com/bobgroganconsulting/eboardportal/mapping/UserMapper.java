@@ -18,10 +18,10 @@ public interface UserMapper {
 
     User toUser(UserDto userDto);
 
-    @Mapping(
-            target = "fullName",
-            expression = "java(user.getFirstName().concat(\" \") + user.getMiddleName().concat(\" \") + user.getLastName())"
-    )
+//    @Mapping(
+//            target = "fullName",
+//            expression = "java(user.getFirstName().concat(\" \") + user.getMiddleName().concat(\" \") + user.getLastName())"
+//    )
     UserDto toUserDto(User user);
 
 }

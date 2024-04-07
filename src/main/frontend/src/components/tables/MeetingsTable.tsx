@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {initFlowbite} from "flowbite";
+import {Link} from "react-router-dom";
 
 interface Props {
 	data: Meeting[];
@@ -70,7 +71,9 @@ function Tbody({ data }: { data: Meeting[] }) {
 						scope='row'
 						className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 					>
-						{meeting.title}
+						<Link to={`/dashboard/meetings/${meeting.slug}`} className="hover:underline hover:text-green-400">
+							{meeting.title}
+						</Link>
 					</th>
 					<td className='px-6 py-4'>{meeting.date}</td>
 					<td className='px-6 py-4'>{meeting.startTime}</td>

@@ -1,10 +1,9 @@
-import {MeetingsTable} from "./tables";
-import {useMeetingsQuery} from "../services/meetings.ts";
-import {toast} from "react-toastify";
 import {useState} from "react";
+import {toast} from "react-toastify";
+import {useMeetingsQuery} from "../services";
+import {MeetingsTable} from "./tables";
 import {MeetingForm} from "./forms";
 import {CustomModal} from "./CustomModal.tsx";
-import {TableFilterSearch} from "./tables/TableFilterSearch.tsx";
 
 export function DashboardMeetingsTable() {
     const [showModal, setShowModal] = useState<boolean>(false);

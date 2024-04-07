@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 
 CREATE TABLE IF NOT EXISTS "meetings" (
     id UUID NOT NULL,
+    slug VARCHAR(255) NOT NULL UNIQUE,
     title VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
     start_time TIME NOT NULL,

@@ -11,4 +11,7 @@ public class MeetingNotFoundException extends NotFoundException {
     public MeetingNotFoundException(UUID id) {
         super("Meeting with id " + id + " does not exist.");
     }
+    public MeetingNotFoundException(String slug) {
+        super("Meeting with slug " + slug + " does not exist.");
+    }
 }
