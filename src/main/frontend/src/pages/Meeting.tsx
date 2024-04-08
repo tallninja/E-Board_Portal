@@ -1,9 +1,8 @@
-import {BottomNavigation} from "../components";
-import {useParams} from "react-router-dom";
-import {useGetMeetingBySlugQuery} from "../services";
-import {toast} from "react-toastify";
-import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {toast} from "react-toastify";
+import {BottomNavigation} from "../components";
+import {useGetMeetingBySlugQuery} from "../services";
 import {setMeeting} from "../features";
 import {RootState} from "../store.ts";
 
@@ -24,14 +23,12 @@ export function Meeting() {
     dispatch(setMeeting(data))
 
     return (
-        <>
-            <div className='p-4 sm:ml-64 h-full'>
-                <h1 className='text-4xl'>{meeting.title}</h1>
-                <div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5'>
+        <div className='p-4 sm:ml-64 sm:mt-14 h-full'>
+            <h1 className='text-4xl font-semibold text-gray-500 dark:text-gray-50'>{meeting.title}</h1>
+            <div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5'>
 
-                    <BottomNavigation/>
-                </div>
+                <BottomNavigation/>
             </div>
-        </>
+        </div>
     )
 }

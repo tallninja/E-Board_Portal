@@ -3,8 +3,8 @@ import {
 	Audios,
 	DashBoard,
 	Documents,
-	Login, Meeting,
-	Meetings,
+	Login, Meeting, MeetingAudios, MeetingDocuments,
+	Meetings, MeetingVideos,
 	PageNotFound,
 	Users,
 	Videos,
@@ -36,7 +36,15 @@ const router = createBrowserRouter([
 										path: 'meetings',
 										children: [
 											{index: true, element: <Meetings/>},
-											{path: ':meetingSlug', element: <Meeting/>}
+											{
+												path: ':meetingSlug',
+												children: [
+													{index: true, element: <Meeting/>},
+													{path: 'documents', element: <MeetingDocuments/>},
+													{path: 'audios', element: <MeetingAudios/>},
+													{path: 'videos', element: <MeetingVideos/>},
+												]
+											}
 										]
 									},
 									{path: 'media/documents', element: <Documents/>},

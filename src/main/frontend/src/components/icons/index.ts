@@ -15,3 +15,4 @@ export * from './DropdownIcon';
 export * from './ClockIcon';
 export * from './SearchIcon';
 export * from './LogoutIcon';
+export * from './InfoCircleIcon';
