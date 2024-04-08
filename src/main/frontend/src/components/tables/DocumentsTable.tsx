@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import prettyBytes from "pretty-bytes";
 
 interface Props {
 	data: DocumentFile[];
@@ -76,7 +77,7 @@ function Tbody({data}: { data: DocumentFile[] }) {
 						</Link>
 					</th>
 					<td className='px-6 py-4'>{document.fileType}</td>
-					<td className='px-6 py-4'>{document.fileSize}</td>
+					<td className='px-6 py-4'>{prettyBytes(document.fileSize)}</td>
 					<td className='px-6 py-4'>
 						<Link
 							to={document.uri}

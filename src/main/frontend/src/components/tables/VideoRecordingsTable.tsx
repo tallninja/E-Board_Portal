@@ -2,6 +2,7 @@ import {useState} from "react";
 import {CustomModal} from "../CustomModal.tsx";
 import {VideoPlayer} from "../VideoPlayer.tsx";
 import {Link} from "react-router-dom";
+import prettyBytes from "pretty-bytes";
 
 interface Props {
 	data: VideoRecording[];
@@ -78,7 +79,7 @@ function Tbody({data, playVideo}: { data: VideoRecording[], playVideo: ((audio: 
 						</p>
 					</th>
 				<td className='px-6 py-4'>{video.fileType}</td>
-				<td className='px-6 py-4'>{video.fileSize}</td>
+				<td className='px-6 py-4'>{prettyBytes(video.fileSize)}</td>
 				<td className='px-6 py-4'>
 					<Link
 						to={video.uri}

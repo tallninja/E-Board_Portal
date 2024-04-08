@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import {useState} from "react";
 import {CustomModal} from "../CustomModal.tsx";
 import {AudioPlayer} from "../AudioPlayer.tsx";
+import prettyBytes from "pretty-bytes";
 
 interface Props {
 	data: AudioRecording[];
@@ -79,7 +80,7 @@ function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: 
 						</p>
 					</th>
 					<td className='px-6 py-4'>{audio.fileType}</td>
-					<td className='px-6 py-4'>{audio.fileSize}</td>
+					<td className='px-6 py-4'>{prettyBytes(audio.fileSize)}</td>
 					<td className='px-6 py-4'>
 						<Link
 							to={audio.uri}

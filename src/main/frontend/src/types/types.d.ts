@@ -11,7 +11,7 @@ interface DocumentFile {
 	id: string;
 	fileName: string;
 	fileType: string;
-	fileSize: string;
+	fileSize: number;
 	uri: string;
 }
 
@@ -19,7 +19,7 @@ interface VideoRecording {
 	id: string;
 	fileName: string;
 	fileType: string;
-	fileSize: string;
+	fileSize: number;
 	duration: number;
 	uri: string;
 }
@@ -28,7 +28,7 @@ interface AudioRecording {
 	id: string;
 	fileName: string;
 	fileType: string;
-	fileSize: string;
+	fileSize: number;
 	duration: number;
 	uri: string;
 }
