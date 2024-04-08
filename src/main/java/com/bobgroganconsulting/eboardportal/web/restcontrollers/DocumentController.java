@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -57,7 +58,9 @@ public class DocumentController {
             @RequestParam("file") MultipartFile multipartFile
     ) throws Exception {
         DocumentDto document = documentService.upload(meetingId, multipartFile);
-        return ResponseEntity.created(document.getUri()).body(document);
+        return ResponseEntity
+                .created(URI.create(document.getUri()))
+                .body(document);
     }
 
     @DeleteMapping("{id}")

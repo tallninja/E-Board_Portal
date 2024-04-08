@@ -58,7 +58,7 @@ public class S3FileTransferServiceImpl implements FileTransferService {
                 .fileName(fileName)
                 .fileType(fileExtension)
                 .fileSize(fileSize)
-                .uri(uri)
+                .uri(uri.toString())
                 .build();
     }
 

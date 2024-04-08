@@ -44,6 +44,6 @@ public class Document extends BaseEntityAudit<Document> {
     private long pages;
 
     @Column(name = "uri")
-    private URI uri;
+    private String uri;
 
 }

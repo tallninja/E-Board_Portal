@@ -44,6 +44,6 @@ public class VideoRecording extends BaseEntityAudit<VideoRecording> {
     private long duration;
 
     @Column(name = "uri")
-    private URI uri;
+    private String uri;
 
 }

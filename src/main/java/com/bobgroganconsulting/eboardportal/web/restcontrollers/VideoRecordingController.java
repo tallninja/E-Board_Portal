@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -58,7 +59,9 @@ public class VideoRecordingController {
             @RequestParam("file") MultipartFile multipartFile
     ) throws Exception {
         VideoRecordingDto videoRecording = videoRecordingService.upload(meetingId, multipartFile);
-        return ResponseEntity.created(videoRecording.getUri()).body(videoRecording);
+        return ResponseEntity
+                .created(URI.create(videoRecording.getUri()))
+                .body(videoRecording);
     }
 
     @DeleteMapping("{id}")

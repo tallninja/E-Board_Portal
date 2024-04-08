@@ -44,6 +44,6 @@ public class AudioRecording extends BaseEntityAudit<AudioRecording> {
     private long duration;
 
     @Column(name = "uri")
-    private URI uri;
+    private String uri;
 
 }

@@ -20,7 +20,7 @@ public class VideoRecordingDto {
     private String fileType;
     private long fileSize;
     private long duration;
-    private URI uri;
+    private String uri;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

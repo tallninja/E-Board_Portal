@@ -16,6 +16,6 @@ public class BlobFile {
     private String fileName;
     private String fileType;
     private long fileSize;
-    private URI uri;
+    private String uri;
 
 }

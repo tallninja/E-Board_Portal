@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -57,7 +58,9 @@ public class AudioRecordingController {
             @RequestParam("file") MultipartFile multipartFile
     ) throws Exception {
         AudioRecordingDto audioRecording = audioRecordingService.upload(meetingId, multipartFile);
-        return ResponseEntity.created(audioRecording.getUri()).body(audioRecording);
+        return ResponseEntity
+                .created(URI.create(audioRecording.getUri()))
+                .body(audioRecording);
     }
 
     @DeleteMapping("{id}")
