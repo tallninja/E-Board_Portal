@@ -1,14 +1,23 @@
+import {ChangeEvent, FormEvent, useState} from "react";
+import {useSelector} from "react-redux";
 import {CloudArrowIcon} from "../icons";
-import {FormEvent} from "react";
+import {RootState} from "../../store.ts";
+import {useUploadDocumentMutation} from "../../services";
 
 interface Props {
     afterSubmit: Function
 }
 
 export function DocumentForm({ afterSubmit } : Props) {
+    const [file, setFile] = useState<File>(null);
+    const meeting: Meeting = useSelector((state: RootState) => state.meetings.meeting)
+    const [uploadDocument, _result] = useUploadDocumentMutation();
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        // await createMeeting(meeting);
+        const formData = new FormData();
+        formData.append("file", file);
+        await uploadDocument({ meetingId: meeting.id, formData })
         afterSubmit();
     }
 
@@ -25,11 +34,22 @@ export function DocumentForm({ afterSubmit } : Props) {
                             <span className="font-semibold">Click to upload</span>
                             or drag and drop
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                            MP3, WAV, or REC (MAX. 1GB)
+                        <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+                            PDF, DOCX, or PPT (MAX. 1GB)
+                        </p>
+                        <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                            {file?.name}
                         </p>
                     </div>
-                    <input id="dropzone-file" type="file" className="hidden"/>
+                    <input
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            setFile(e.target.files?.[0] ?? null);
+                        }}
+                        required
+                        id="dropzone-file"
+                        type="file"
+                        className="hidden"
+                    />
                 </label>
             </div>
             <button

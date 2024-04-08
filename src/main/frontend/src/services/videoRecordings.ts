@@ -27,8 +27,20 @@ export const videoRecordingsApi = createApi({
                     + `&sortBy=${pageData.sortBy || "createdAt"}`,
                 method: "GET"
             })
+        }),
+        uploadVideoRecording: builder.mutation<VideoRecording, FileUploadRequest>({
+            query: ({ meetingId, formData }: FileUploadRequest) => ({
+                url: `video-recordings/upload?meeting_id=${meetingId}`,
+                method: "POST",
+                body: formData,
+                formData: true
+            })
         })
     })
 });
 
-export const { useGetVideoRecordingsQuery, useGetVideoRecordingsByMeetingQuery } = videoRecordingsApi;
+export const {
+    useGetVideoRecordingsQuery,
+    useGetVideoRecordingsByMeetingQuery,
+    useUploadVideoRecordingMutation
+} = videoRecordingsApi;

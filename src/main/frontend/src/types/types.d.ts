@@ -83,3 +83,8 @@ interface MeetingIdWithPageData {
 	meetingId: string,
 	pageData: Page
 }
+
+interface FileUploadRequest {
+	meetingId: string,
+	formData: FormData
+}

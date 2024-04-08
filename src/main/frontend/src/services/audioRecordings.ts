@@ -27,8 +27,20 @@ export const audioRecordingsApi = createApi({
                     + `&sortBy=${pageData.sortBy || "createdAt"}`,
                 method: "GET"
             })
+        }),
+        uploadAudioRecording: builder.mutation<AudioRecording, FileUploadRequest>({
+            query: ({ meetingId, formData }: FileUploadRequest) => ({
+                url: `audio-recordings/upload?meeting_id=${meetingId}`,
+                method: "POST",
+                body: formData,
+                formData: true
+            })
         })
     })
 });
 
-export const { useGetAudioRecordingsQuery, useGetAudioRecordingsByMeetingQuery } = audioRecordingsApi;
+export const {
+    useGetAudioRecordingsQuery,
+    useGetAudioRecordingsByMeetingQuery,
+    useUploadAudioRecordingMutation
+} = audioRecordingsApi;

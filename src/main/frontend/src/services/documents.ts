@@ -27,8 +27,20 @@ export const documentsApi = createApi({
                     + `&sortBy=${pageData.sortBy || "createdAt"}`,
                 method: "GET"
             })
+        }),
+        uploadDocument: builder.mutation<Document, FileUploadRequest>({
+            query: ({ meetingId, formData }: FileUploadRequest) => ({
+                url: `documents/upload?meeting_id=${meetingId}`,
+                method: "POST",
+                body: formData,
+                formData: true
+            })
         })
     })
 });
 
-export const { useGetDocumentsQuery, useGetDocumentsByMeetingQuery } = documentsApi;
+export const {
+    useGetDocumentsQuery,
+    useGetDocumentsByMeetingQuery,
+    useUploadDocumentMutation
+} = documentsApi;

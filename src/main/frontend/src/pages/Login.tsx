@@ -1,21 +1,20 @@
+import {FormEvent, useState} from "react";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 import {Branding} from "../components";
 import {useLocalStorage, useTheme} from "../hooks";
-import {FormEvent, useState} from "react";
-import {useLoginUserMutation} from "../services/auth.ts";
-import {useDispatch} from "react-redux";
-import {login, setAuthUser} from "../features";
-import {encrypt} from "../utils/crypto.ts";
-import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import {useLoginUserMutation} from "../services";
+import {login} from "../features";
 
 export function Login() {
     const [theme, _] = useTheme();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [loginUser, result] = useLoginUserMutation();
+    const [loginUser, _result] = useLoginUserMutation();
     const dispatch = useDispatch();
-    const [__, setAccessToken] = useLocalStorage("a_t", "")
-    const [___, setRefreshToken] = useLocalStorage("r_t", "")
+    const [_accessToken, setAccessToken] = useLocalStorage("a_t", "")
+    const [_refreshToken, setRefreshToken] = useLocalStorage("r_t", "")
     const navigate = useNavigate();
 
     const onSubmit = (e: FormEvent) => {
