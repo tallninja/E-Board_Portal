@@ -27,8 +27,11 @@ import java.util.List;
 @Service
 public class S3FileTransferServiceImpl implements FileTransferService {
 
-    @Value("${aws.s3.bucketName}")
+    @Value("${aws.s3.bucket-name}")
     private String bucketName;
+
+    @Value("${aws.cloudfront.distribution-domain-name}")
+    private String awsCloudfrontDistributionDomainName;
 
     private final AmazonS3 s3;
 
@@ -53,12 +56,14 @@ public class S3FileTransferServiceImpl implements FileTransferService {
         file.delete();
 
         //https://bg-blob-repository.s3.af-south-1.amazonaws.com/1710261797939-test_file.txt
-        URI uri = URI.create("https://" + bucketName + ".s3." + s3.getRegionName() + ".amazonaws.com/" + fileName);
+        //URI uri = URI.create("https://" + bucketName + ".s3." + s3.getRegionName() + ".amazonaws.com/" + fileName);
+
+        String uri = "https://" + awsCloudfrontDistributionDomainName + "/" + fileName;
         return BlobFile.builder()
                 .fileName(fileName)
                 .fileType(fileExtension)
                 .fileSize(fileSize)
-                .uri(uri.toString())
+                .uri(uri)
                 .build();
     }
 
