@@ -1,4 +1,6 @@
-import {Link} from "react-router-dom";
+import {useState} from "react";
+import {CustomModal} from "../CustomModal.tsx";
+import {VideoPlayer} from "../VideoPlayer.tsx";
 
 interface Props {
 	data: VideoRecording[];
@@ -41,7 +43,7 @@ function Thead() {
 	);
 }
 
-function Tbody({data}: { data: VideoRecording[] }) {
+function Tbody({data, playVideo}: { data: VideoRecording[], playVideo: ((audio: VideoRecording) => void) }) {
 	return (
 		<tbody>
 		{data.map((video, idx) => (
@@ -66,12 +68,17 @@ function Tbody({data}: { data: VideoRecording[] }) {
 						scope='row'
 						className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 					>
-						<Link to={video.uri}>{video.fileName}</Link>
+						<p
+							onClick={() => playVideo(video)}
+							className="hover:underline hover:text-green-400 cursor-pointer"
+						>
+							{video.fileName}
+						</p>
 					</th>
-					<td className='px-6 py-4'>{video.fileType}</td>
-					<td className='px-6 py-4'>{video.fileSize}</td>
-					<td className='px-6 py-4'>
-						<a
+				<td className='px-6 py-4'>{video.fileType}</td>
+				<td className='px-6 py-4'>{video.fileSize}</td>
+				<td className='px-6 py-4'>
+					<a
 							href='#'
 							className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
 						>
@@ -94,12 +101,30 @@ function Tbody({data}: { data: VideoRecording[] }) {
 }
 
 export function VideoRecordingsTable({ data }: Props) {
+	const [showPlayer, setShowPlayer] = useState<boolean>(false);
+	const [video, setVideo] = useState<VideoRecording>(null);
+
+	const playVideo = (video: VideoRecording) => {
+		setVideo(video);
+		setShowPlayer(true);
+	}
+
 	return (
-		<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
-			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-				<Thead/>
-				<Tbody data={data}/>
-			</table>
-		</div>
+		<>
+			<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+				<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+					<Thead/>
+					<Tbody data={data} playVideo={(video) => playVideo(video)}/>
+				</table>
+			</div>
+
+			<CustomModal
+				title={`${video?.fileName}`}
+				showModal={showPlayer}
+				setShowModal={setShowPlayer}
+			>
+				<VideoPlayer src={video?.uri ?? ""} type={video?.fileType ?? ""} />
+			</CustomModal>
+		</>
 	);
 }

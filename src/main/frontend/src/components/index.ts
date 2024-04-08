@@ -9,6 +9,8 @@ export * from './PersistAuthSession';
 export * from './StatsCard';
 export * from './DashboardStatsCards';
 export * from './forms';
-export * from "./CustomModal.tsx";
+export * from "./CustomModal";
 export * from "./BottomNavigation";
 export * from "./PersistMeeting"
+export * from "./AudioPlayer";
+export * from "./VideoPlayer";

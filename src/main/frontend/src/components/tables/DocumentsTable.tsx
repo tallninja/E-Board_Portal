@@ -66,7 +66,9 @@ function Tbody({data}: { data: DocumentFile[] }) {
 						scope='row'
 						className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 					>
-						<Link to={document.uri}>{document.fileName}</Link>
+						<Link to={document.uri} target="_blank" className="hover:underline hover:text-green-400">
+							{document.fileName}
+						</Link>
 					</th>
 					<td className='px-6 py-4'>{document.fileType}</td>
 					<td className='px-6 py-4'>{document.fileSize}</td>

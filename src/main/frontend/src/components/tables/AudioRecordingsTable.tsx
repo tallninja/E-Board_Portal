@@ -1,4 +1,7 @@
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import {CustomModal} from "../CustomModal.tsx";
+import {AudioPlayer} from "../AudioPlayer.tsx";
 
 interface Props {
 	data: AudioRecording[];
@@ -41,7 +44,8 @@ function Thead() {
 	);
 }
 
-function Tbody({data}: { data: AudioRecording[] }) {
+function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: AudioRecording) => void) }) {
+
 	return (
 		<tbody>
 		{data.map((audio, idx) => (
@@ -66,7 +70,12 @@ function Tbody({data}: { data: AudioRecording[] }) {
 						scope='row'
 						className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 					>
-						<Link to={audio.uri}>{audio.fileName}</Link>
+						<p
+							onClick={() => playAudio(audio)}
+							className="hover:underline hover:text-green-400 cursor-pointer"
+						>
+							{audio.fileName}
+						</p>
 					</th>
 					<td className='px-6 py-4'>{audio.fileType}</td>
 					<td className='px-6 py-4'>{audio.fileSize}</td>
@@ -94,12 +103,30 @@ function Tbody({data}: { data: AudioRecording[] }) {
 }
 
 export function AudioRecordingsTable({ data }: Props) {
+	const [showPlayer, setShowPlayer] = useState<boolean>(false);
+	const [audio, setAudio] = useState<AudioRecording>(null);
+
+	const playAudio = (audio: AudioRecording) => {
+		setAudio(audio);
+		setShowPlayer(true);
+	}
+
 	return (
-		<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
-			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-				<Thead/>
-				<Tbody data={data}/>
-			</table>
-		</div>
+		<>
+			<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+				<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+					<Thead/>
+					<Tbody data={data} playAudio={(audio) => playAudio(audio)}/>
+				</table>
+			</div>
+
+			<CustomModal
+				title={`${audio?.fileName}`}
+				showModal={showPlayer}
+				setShowModal={setShowPlayer}
+			>
+				<AudioPlayer src={audio?.uri ?? ""} type={audio?.fileType ?? ""} />
+			</CustomModal>
+		</>
 	);
 }
