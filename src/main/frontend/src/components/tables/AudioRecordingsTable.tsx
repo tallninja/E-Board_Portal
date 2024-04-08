@@ -74,7 +74,8 @@ function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: 
 							onClick={() => playAudio(audio)}
 							className="hover:underline hover:text-green-400 cursor-pointer"
 						>
-							{audio.fileName}
+							{audio.fileName.slice(14, 70)}
+							{audio.fileName.length > 70 && "..."}
 						</p>
 					</th>
 					<td className='px-6 py-4'>{audio.fileType}</td>
@@ -123,7 +124,7 @@ export function AudioRecordingsTable({ data }: Props) {
 			</div>
 
 			<CustomModal
-				title={`${audio?.fileName}`}
+				title={`${audio?.fileName.slice(14, 66)}${audio?.fileName.length > 66 ? "..." : ""}`}
 				showModal={showPlayer}
 				setShowModal={setShowPlayer}
 			>

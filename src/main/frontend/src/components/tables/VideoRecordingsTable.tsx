@@ -73,7 +73,8 @@ function Tbody({data, playVideo}: { data: VideoRecording[], playVideo: ((audio: 
 							onClick={() => playVideo(video)}
 							className="hover:underline hover:text-green-400 cursor-pointer"
 						>
-							{video.fileName}
+							{video.fileName.slice(14, 70)}
+							{video.fileName.length > 70 && "..."}
 						</p>
 					</th>
 				<td className='px-6 py-4'>{video.fileType}</td>
@@ -122,7 +123,7 @@ export function VideoRecordingsTable({ data }: Props) {
 			</div>
 
 			<CustomModal
-				title={`${video?.fileName}`}
+				title={`${video?.fileName.slice(14, 66)}${video?.fileName.length > 66 ? "..." : ""}`}
 				showModal={showPlayer}
 				setShowModal={setShowPlayer}
 			>
