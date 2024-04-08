@@ -1,15 +1,11 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store.ts";
-import {useEffect, useRef} from "react";
-import {useGetAuthUserQuery} from "../services/auth.ts";
-import {login, logout, setAuthUser} from "../features";
+import {useEffect} from "react";
 import {Outlet} from "react-router-dom";
-import {toast} from "react-toastify";
-import {initFlowbite} from "flowbite";
+import {useDispatch} from "react-redux";
+import {useGetAuthUserQuery} from "../services";
+import {login, logout} from "../features";
 
 export function PersistAuthSession() {
     const dispatch = useDispatch();
-    const auth = useSelector((state: RootState) => state.auth);
     const {data: authUser, isLoading, isError} = useGetAuthUserQuery();
 
     useEffect(() => {

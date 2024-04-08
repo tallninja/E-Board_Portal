@@ -16,8 +16,19 @@ export const videoRecordingsApi = createApi({
                     + `&sortBy=${pageData.sortBy || "createdAt"}`,
                 method: "GET"
             })
+        }),
+        getVideoRecordingsByMeeting: builder.query<VideoRecording[], MeetingIdWithPageData>({
+            query: ({meetingId, pageData}: MeetingIdWithPageData) => ({
+                url: "video-recordings"
+                    + `?meeting_id=${meetingId}`
+                    + `&page=${pageData.page || 0}`
+                    + `&page_size=${pageData.pageSize || 10}`
+                    + `&sort_direction=${pageData.sortDirection || "desc"}`
+                    + `&sortBy=${pageData.sortBy || "createdAt"}`,
+                method: "GET"
+            })
         })
     })
 });
 
-export const { useGetVideoRecordingsQuery } = videoRecordingsApi;
+export const { useGetVideoRecordingsQuery, useGetVideoRecordingsByMeetingQuery } = videoRecordingsApi;

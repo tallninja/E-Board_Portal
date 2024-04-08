@@ -16,8 +16,19 @@ export const documentsApi = createApi({
                     + `&sortBy=${pageData.sortBy || "createdAt"}`,
                 method: "GET"
             })
+        }),
+        getDocumentsByMeeting: builder.query<DocumentFile[], MeetingIdWithPageData>({
+            query: ({ meetingId, pageData } : MeetingIdWithPageData) => ({
+                url: "documents"
+                    + `?meeting_id=${meetingId}`
+                    + `&page=${pageData.page || 0}`
+                    + `&page_size=${pageData.pageSize || 10}`
+                    + `&sort_direction=${pageData.sortDirection || "desc"}`
+                    + `&sortBy=${pageData.sortBy || "createdAt"}`,
+                method: "GET"
+            })
         })
     })
 });
 
-export const { useGetDocumentsQuery } = documentsApi;
+export const { useGetDocumentsQuery, useGetDocumentsByMeetingQuery } = documentsApi;

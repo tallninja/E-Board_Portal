@@ -10,7 +10,7 @@ import {
 	Videos,
 } from './pages';
 import { useTheme } from './hooks';
-import {PersistAuthSession, Protected, Wrapper} from './components';
+import {PersistAuthSession, PersistMeeting, Protected, Wrapper} from './components';
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -40,9 +40,14 @@ const router = createBrowserRouter([
 												path: ':meetingSlug',
 												children: [
 													{index: true, element: <Meeting/>},
-													{path: 'documents', element: <MeetingDocuments/>},
-													{path: 'audios', element: <MeetingAudios/>},
-													{path: 'videos', element: <MeetingVideos/>},
+													{
+														element: <PersistMeeting />,
+														children: [
+															{path: 'documents', element: <MeetingDocuments/>},
+															{path: 'audios', element: <MeetingAudios/>},
+															{path: 'videos', element: <MeetingVideos/>},
+														]
+													}
 												]
 											}
 										]

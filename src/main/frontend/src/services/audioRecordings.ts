@@ -16,8 +16,19 @@ export const audioRecordingsApi = createApi({
                     + `&sortBy=${pageData.sortBy || "createdAt"}`,
                 method: "GET"
             })
+        }),
+        getAudioRecordingsByMeeting: builder.query<AudioRecording[], MeetingIdWithPageData>({
+            query: ({ meetingId, pageData } : MeetingIdWithPageData) => ({
+                url: "audio-recordings"
+                    + `?meeting_id=${meetingId}`
+                    + `&page=${pageData.page || 0}`
+                    + `&page_size=${pageData.pageSize || 10}`
+                    + `&sort_direction=${pageData.sortDirection || "desc"}`
+                    + `&sortBy=${pageData.sortBy || "createdAt"}`,
+                method: "GET"
+            })
         })
     })
 });
 
-export const { useGetAudioRecordingsQuery } = audioRecordingsApi;
+export const { useGetAudioRecordingsQuery, useGetAudioRecordingsByMeetingQuery } = audioRecordingsApi;

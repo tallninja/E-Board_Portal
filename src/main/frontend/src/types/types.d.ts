@@ -78,3 +78,8 @@ interface Page {
 	sortDirection?: string,
 	sortBy?: string,
 }
+
+interface MeetingIdWithPageData {
+	meetingId: string,
+	pageData: Page
+}
