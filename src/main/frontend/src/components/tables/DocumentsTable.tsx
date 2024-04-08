@@ -73,12 +73,14 @@ function Tbody({data}: { data: DocumentFile[] }) {
 					<td className='px-6 py-4'>{document.fileType}</td>
 					<td className='px-6 py-4'>{document.fileSize}</td>
 					<td className='px-6 py-4'>
-						<a
-							href='#'
+						<Link
+							to={document.uri}
+							target="_blank"
+							download={document.fileName}
 							className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
 						>
-							Edit
-						</a>
+							Download
+						</Link>
 					</td>
 
 					<td className='px-6 py-4'>

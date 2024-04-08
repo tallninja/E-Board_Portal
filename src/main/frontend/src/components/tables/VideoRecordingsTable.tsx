@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {CustomModal} from "../CustomModal.tsx";
 import {VideoPlayer} from "../VideoPlayer.tsx";
+import {Link} from "react-router-dom";
 
 interface Props {
 	data: VideoRecording[];
@@ -78,19 +79,21 @@ function Tbody({data, playVideo}: { data: VideoRecording[], playVideo: ((audio: 
 				<td className='px-6 py-4'>{video.fileType}</td>
 				<td className='px-6 py-4'>{video.fileSize}</td>
 				<td className='px-6 py-4'>
-					<a
-							href='#'
-							className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
-						>
-							Edit
-						</a>
-					</td>
+					<Link
+						to={video.uri}
+						target="_blank"
+						download={video.fileName}
+						className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+					>
+						Download
+					</Link>
+				</td>
 
-					<td className='px-6 py-4'>
-						<a
-							href='#'
-							className='font-medium text-red-600 dark:text-red-500 hover:underline'
-						>
+				<td className='px-6 py-4'>
+					<a
+						href='#'
+						className='font-medium text-red-600 dark:text-red-500 hover:underline'
+					>
 							Delete
 						</a>
 					</td>

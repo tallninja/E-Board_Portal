@@ -80,12 +80,14 @@ function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: 
 					<td className='px-6 py-4'>{audio.fileType}</td>
 					<td className='px-6 py-4'>{audio.fileSize}</td>
 					<td className='px-6 py-4'>
-						<a
-							href='#'
+						<Link
+							to={audio.uri}
+							target="_blank"
+							download={audio.fileName}
 							className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
 						>
-							Edit
-						</a>
+							Download
+						</Link>
 					</td>
 
 					<td className='px-6 py-4'>
