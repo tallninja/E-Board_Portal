@@ -6,9 +6,10 @@ interface Props {
 	text: string;
 	icon: ReactNode;
 	className?: string | undefined;
+	end?: boolean;
 }
 
-export function NavItem({ to, text, icon, className }: Props) {
+export function NavItem({ to, text, icon, className, end }: Props) {
 	const navLinkProps: NavLinkProps = {
 		to: to,
 		className: ({ isActive, isPending }) =>
@@ -21,7 +22,7 @@ export function NavItem({ to, text, icon, className }: Props) {
 	};
 
 	return (
-		<NavLink to={to} className={navLinkProps.className} end>
+		<NavLink to={to} className={navLinkProps.className} end={end ?? true}>
 			{icon}
 			<span className='ms-3'>{text}</span>
 		</NavLink>

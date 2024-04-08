@@ -26,6 +26,7 @@ export function Sidebar() {
 					</li>
 					<li>
 						<NavItem
+							end={false}
 							text='Meetings'
 							to='/dashboard/meetings'
 							icon={<UserGroupIcon className="w-6 h-6 text-gray-500  dark:text-gray-400" />}
