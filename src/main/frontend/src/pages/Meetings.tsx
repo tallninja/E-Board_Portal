@@ -53,7 +53,7 @@ export function Meetings() {
 
 			<CustomModal
 				showModal={showModal}
-				setShowModal={setShowModal} id="meeting-form-modal"
+				setShowModal={setShowModal}
 				title="Create New Meeting"
 			>
 				<MeetingForm afterSubmit={() => setShowModal(false)}/>

@@ -16,3 +16,4 @@ export * from './ClockIcon';
 export * from './SearchIcon';
 export * from './LogoutIcon';
 export * from './InfoCircleIcon';
+export * from './CloudArrowIcon'
