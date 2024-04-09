@@ -21,4 +21,7 @@ public interface AudioRecordingRepository extends JpaRepository<AudioRecording, 
     @Query("SELECT a FROM AudioRecording a WHERE a.meeting = :meeting")
     Page<AudioRecording> findByMeeting(Meeting meeting, Pageable pageable);
 
+    @Query("SELECT COUNT(a) FROM AudioRecording a WHERE a.meeting = :meeting")
+    long count(Meeting meeting);
+
 }

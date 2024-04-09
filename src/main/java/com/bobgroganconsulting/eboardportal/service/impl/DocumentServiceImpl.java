@@ -58,6 +58,12 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public long getCount(UUID meetingId) {
+        Meeting meeting = meetingService.findOne(meetingId);
+        return documentRepository.count(meeting);
+    }
+
+    @Override
     public DocumentDto findById(UUID id) {
         Document document = findOne(id);
         return documentMapper.toDocumentDto(document);

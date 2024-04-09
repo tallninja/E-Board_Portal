@@ -21,4 +21,7 @@ public interface VideoRecordingRepository extends JpaRepository<VideoRecording, 
     @Query("SELECT v FROM VideoRecording v WHERE v.meeting = :meeting")
     Page<VideoRecording> findByMeeting(Meeting meeting, Pageable pageable);
 
+    @Query("SELECT COUNT(v) FROM VideoRecording v WHERE v.meeting = :meeting")
+    long count(Meeting meeting);
+
 }

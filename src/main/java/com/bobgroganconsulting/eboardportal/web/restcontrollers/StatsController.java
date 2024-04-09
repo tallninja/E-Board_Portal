@@ -6,40 +6,35 @@
 package com.bobgroganconsulting.eboardportal.web.restcontrollers;
 
 import com.bobgroganconsulting.eboardportal.dtos.query.CountsDto;
-import com.bobgroganconsulting.eboardportal.service.AudioRecordingService;
-import com.bobgroganconsulting.eboardportal.service.DocumentService;
-import com.bobgroganconsulting.eboardportal.service.MeetingService;
-import com.bobgroganconsulting.eboardportal.service.VideoRecordingService;
+import com.bobgroganconsulting.eboardportal.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/statistics")
 public class StatsController {
 
-    private final MeetingService meetingService;
-    private final DocumentService documentService;
-    private final AudioRecordingService audioRecordingService;
-    private final VideoRecordingService videoRecordingService;
+    private final StatsService statsService;
 
-    public StatsController(MeetingService meetingService, DocumentService documentService, AudioRecordingService audioRecordingService, VideoRecordingService videoRecordingService) {
-        this.meetingService = meetingService;
-        this.documentService = documentService;
-        this.audioRecordingService = audioRecordingService;
-        this.videoRecordingService = videoRecordingService;
+    public StatsController(StatsService statsService) {
+        this.statsService = statsService;
     }
 
     @GetMapping("counts")
     public ResponseEntity<CountsDto> getStatistics() {
-        CountsDto counts = CountsDto.builder()
-                .meetings(meetingService.getCount())
-                .documents(documentService.getCount())
-                .audioRecordings(audioRecordingService.getCount())
-                .videoRecordings(videoRecordingService.getCount())
-                .build();
+        CountsDto counts = statsService.getCounts();
+        return new ResponseEntity<>(counts, HttpStatus.OK);
+    }
+
+    @GetMapping("counts/meetings/{meetingId}")
+    public ResponseEntity<CountsDto> getMeetingStatistics(@PathVariable UUID meetingId) {
+        CountsDto counts = statsService.getCounts(meetingId);
         return new ResponseEntity<>(counts, HttpStatus.OK);
     }
 

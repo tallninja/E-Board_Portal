@@ -21,4 +21,7 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
     @Query("SELECT d FROM Document d WHERE d.meeting = :meeting")
     Page<Document> findByMeeting(Meeting meeting, Pageable pageable);
 
+    @Query("SELECT COUNT(d) FROM Document d WHERE d.meeting = :meeting")
+    long count(Meeting meeting);
+
 }
