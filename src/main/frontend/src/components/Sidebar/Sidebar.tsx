@@ -80,10 +80,10 @@ export function Sidebar() {
 
 				<ul className='pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700'>
 					<li>
-						<NavItem text='Upgrade to Pro' to='/pricing' icon={<FireIcon />} />
+						<NavItem text='Upgrade to Pro' to='https://bobgroganconsulting.com' icon={<FireIcon />} />
 					</li>
 					<li>
-						<NavItem text='help' to='/help' icon={<HelpIcon />} />
+						<NavItem text='help' to='https://bobgroganconsulting.com'  icon={<HelpIcon />} />
 					</li>
 				</ul>
 			</div>
