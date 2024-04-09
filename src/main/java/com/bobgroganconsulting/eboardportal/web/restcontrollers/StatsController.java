@@ -38,4 +38,10 @@ public class StatsController {
         return new ResponseEntity<>(counts, HttpStatus.OK);
     }
 
+    @GetMapping("counts/meetings/slug/{slug}")
+    public ResponseEntity<CountsDto> getMeetingStatistics(@PathVariable String slug) {
+        CountsDto counts = statsService.getCounts(slug);
+        return new ResponseEntity<>(counts, HttpStatus.OK);
+    }
+
 }

@@ -73,7 +73,7 @@ export function Sidebar() {
 					<li>
 						<NavItem
 							text='Users'
-							to='/dashboard/users'
+							to='https://bobgroganconsulting.com'
 							icon={<UsersIcon className="w-6 h-6 text-gray-500 dark:text-gray-400" />} />
 					</li>
 				</ul>

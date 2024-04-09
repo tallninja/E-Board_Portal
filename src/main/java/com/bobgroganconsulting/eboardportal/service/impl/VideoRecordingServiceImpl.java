@@ -64,6 +64,12 @@ public class VideoRecordingServiceImpl implements VideoRecordingService {
     }
 
     @Override
+    public long getCount(String slug) {
+        Meeting meeting = meetingService.findOne(slug);
+        return videoRecordingRepository.count(meeting);
+    }
+
+    @Override
     public long getStorageUsed() {
         return videoRecordingRepository.storageUsed();
     }
@@ -71,6 +77,12 @@ public class VideoRecordingServiceImpl implements VideoRecordingService {
     @Override
     public long getStorageUsed(UUID meetingId) {
         Meeting meeting = meetingService.findOne(meetingId);
+        return videoRecordingRepository.storageUsed(meeting);
+    }
+
+    @Override
+    public long getStorageUsed(String slug) {
+        Meeting meeting = meetingService.findOne(slug);
         return videoRecordingRepository.storageUsed(meeting);
     }
 

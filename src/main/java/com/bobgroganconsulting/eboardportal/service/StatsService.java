@@ -13,5 +13,6 @@ public interface StatsService {
 
     CountsDto getCounts();
     CountsDto getCounts(UUID meetingId);
+    CountsDto getCounts(String slug);
 
 }

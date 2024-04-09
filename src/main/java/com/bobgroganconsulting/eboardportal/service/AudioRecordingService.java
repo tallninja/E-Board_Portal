@@ -19,8 +19,10 @@ public interface AudioRecordingService {
     Page<AudioRecordingDto> findAll(UUID meetingId, Pageable pageable);
     long getCount();
     long getCount(UUID meetingId);
+    long getCount(String slug);
     long getStorageUsed();
     long getStorageUsed(UUID meetingId);
+    long getStorageUsed(String slug);
     AudioRecordingDto findById(UUID id);
     AudioRecordingDto upload(UUID meetingId, MultipartFile multipartFile) throws Exception;
     void delete(UUID id);

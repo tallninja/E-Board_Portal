@@ -38,4 +38,10 @@ public class StorageUsageController {
         return new ResponseEntity<>(storageUsage, HttpStatus.OK);
     }
 
+    @GetMapping("meetings/slug/{slug}")
+    public ResponseEntity<StorageDto> getStorageUsage(@PathVariable String slug) {
+        StorageDto storageUsage = storageUsageService.getStorageUsage(slug);
+        return new ResponseEntity<>(storageUsage, HttpStatus.OK);
+    }
+
 }

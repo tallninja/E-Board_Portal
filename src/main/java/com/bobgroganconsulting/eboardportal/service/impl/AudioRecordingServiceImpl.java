@@ -64,6 +64,12 @@ public class AudioRecordingServiceImpl implements AudioRecordingService {
     }
 
     @Override
+    public long getCount(String slug) {
+        Meeting meeting = meetingService.findOne(slug);
+        return audioRecordingRepository.count(meeting);
+    }
+
+    @Override
     public long getStorageUsed() {
         return audioRecordingRepository.storageUsed();
     }
@@ -71,6 +77,12 @@ public class AudioRecordingServiceImpl implements AudioRecordingService {
     @Override
     public long getStorageUsed(UUID meetingId) {
         Meeting meeting = meetingService.findOne(meetingId);
+        return audioRecordingRepository.storageUsed(meeting);
+    }
+
+    @Override
+    public long getStorageUsed(String slug) {
+        Meeting meeting = meetingService.findOne(slug);
         return audioRecordingRepository.storageUsed(meeting);
     }
 

@@ -64,6 +64,12 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public long getCount(String slug) {
+        Meeting meeting = meetingService.findOne(slug);
+        return documentRepository.count(meeting);
+    }
+
+    @Override
     public long getStorageUsed() {
         return documentRepository.storageUsed();
     }
@@ -71,6 +77,12 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public long getStorageUsed(UUID meetingId) {
         Meeting meeting = meetingService.findOne(meetingId);
+        return documentRepository.storageUsed(meeting);
+    }
+
+    @Override
+    public long getStorageUsed(String slug) {
+        Meeting meeting = meetingService.findOne(slug);
         return documentRepository.storageUsed(meeting);
     }
 

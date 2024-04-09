@@ -18,8 +18,10 @@ public interface VideoRecordingService {
     Page<VideoRecordingDto> findAll(UUID meetingId, Pageable pageable);
     long getCount();
     long getCount(UUID meetingId);
+    long getCount(String slug);
     long getStorageUsed();
     long getStorageUsed(UUID meetingId);
+    long getStorageUsed(String slug);
     VideoRecordingDto findById(UUID id);
     VideoRecordingDto upload(UUID meetingId, MultipartFile multipartFile) throws Exception;
     void delete(UUID id);

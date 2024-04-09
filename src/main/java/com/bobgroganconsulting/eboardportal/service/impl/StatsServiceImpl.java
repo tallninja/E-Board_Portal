@@ -44,4 +44,13 @@ public class StatsServiceImpl implements StatsService {
                 .videoRecordings(videoRecordingService.getCount(meetingId))
                 .build();
     }
+
+    @Override
+    public CountsDto getCounts(String slug) {
+        return CountsDto.builder()
+                .documents(documentService.getCount(slug))
+                .audioRecordings(audioRecordingService.getCount(slug))
+                .videoRecordings(videoRecordingService.getCount(slug))
+                .build();
+    }
 }

@@ -12,8 +12,14 @@ export const statsApi = createApi({
                 url: "statistics/counts",
                 method: "GET"
             })
+        }),
+        getMeetingCountStats: builder.query<CountStats, string>({
+            query: (slug: string) => ({
+                url: `statistics/counts/meetings/slug/${slug}`,
+                method: "GET"
+            })
         })
     })
 });
 
-export const { useCountStatsQuery } = statsApi;
+export const { useCountStatsQuery, useGetMeetingCountStatsQuery } = statsApi;

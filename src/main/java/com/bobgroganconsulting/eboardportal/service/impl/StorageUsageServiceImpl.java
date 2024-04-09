@@ -64,6 +64,24 @@ public class StorageUsageServiceImpl implements StorageUsageService {
     }
 
     @Override
+    public StorageDto getStorageUsage(String slug) {
+        long documents = documentService.getStorageUsed(slug);
+        long audioRecordings = audioRecordingService.getStorageUsed(slug);
+        long videoRecordings = videoRecordingService.getStorageUsed(slug);
+        long totalUsed = getTotalStorageUsed(slug);
+        long available = getAvailableStorage();
+        long maxCapacity = getMaxStorageCapacity();
+        return StorageDto.builder()
+                .documents(documents)
+                .audioRecordings(audioRecordings)
+                .videoRecordings(videoRecordings)
+                .totalUsed(totalUsed)
+                .available(available)
+                .maxCapacity(maxCapacity)
+                .build();
+    }
+
+    @Override
     public long getTotalStorageUsed() {
         long documents = documentService.getStorageUsed();
         long audioRecordings = audioRecordingService.getStorageUsed();
@@ -76,6 +94,14 @@ public class StorageUsageServiceImpl implements StorageUsageService {
         long documents = documentService.getStorageUsed(meetingId);
         long audioRecordings = audioRecordingService.getStorageUsed(meetingId);
         long videoRecordings = videoRecordingService.getStorageUsed(meetingId);
+        return documents + audioRecordings + videoRecordings;
+    }
+
+    @Override
+    public long getTotalStorageUsed(String slug) {
+        long documents = documentService.getStorageUsed(slug);
+        long audioRecordings = audioRecordingService.getStorageUsed(slug);
+        long videoRecordings = videoRecordingService.getStorageUsed(slug);
         return documents + audioRecordings + videoRecordings;
     }
 

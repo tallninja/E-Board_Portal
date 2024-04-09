@@ -24,28 +24,28 @@ export function DashboardStatsCards() {
                 color="teal"
                 count={countStats.meetings}
                 text="Meetings"
-                href="/dashboard/meetings"
+                href="/dashhboard/meetings"
             />
             <StatsCard
                 icon={<FilePdfIcon/>}
                 color="green"
                 count={countStats.documents}
                 text="Documents"
-                href="/dasboard/media/documents"
+                href="/dashboard/media/documents"
             />
             <StatsCard
                 icon={<AudioIcon/>}
                 color="amber"
                 count={countStats.audioRecordings}
                 text="Audio Recordings"
-                href="/dasboard/media/audios"
+                href="/dashboard/media/audios"
             />
             <StatsCard
                 icon={<VideoIcon/>}
                 color="red"
                 count={countStats.videoRecordings}
                 text="Video Recordings"
-                href="/dasboard/media/videos"
+                href="/dashboard/media/videos"
             />
         </div>
     )

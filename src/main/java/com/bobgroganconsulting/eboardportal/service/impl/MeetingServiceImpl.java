@@ -83,9 +83,6 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public MeetingDto update(UUID id, UpdateMeetingDto meetingDto) {
         Meeting meeting = findOne(id);
-        String slug = generateSlug(meetingDto.getTitle());
-        meeting.setTitle(meetingDto.getTitle());
-        meeting.setSlug(slug);
         meeting.setDate(meetingDto.getDate());
         meeting.setStartTime(meetingDto.getStartTime());
         meeting.setEndTime(meetingDto.getStartTime());

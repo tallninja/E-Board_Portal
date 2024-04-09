@@ -12,8 +12,10 @@ import java.util.UUID;
 public interface StorageUsageService {
     StorageDto getStorageUsage();
     StorageDto getStorageUsage(UUID meetingId);
+    StorageDto getStorageUsage(String slug);
     long getTotalStorageUsed();
     long getTotalStorageUsed(UUID meetingId);
+    long getTotalStorageUsed(String slug);
     long getAvailableStorage();
     long getMaxStorageCapacity();
 }
