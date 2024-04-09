@@ -29,8 +29,27 @@ export const meetingsApi = createApi({
                 method: "POST",
                 body
             })
+        }),
+        updateMeeting: builder.mutation<Meeting, { id: string, body: Meeting }>({
+            query: ({ id, body } : { id: string, body: Meeting }) => ({
+                url: `meetings/${id}`,
+                method: "PUT",
+                body
+            })
+        }),
+        deleteMeeting: builder.mutation<void, string>({
+            query: (id: string) => ({
+                url: `meetings/${id}`,
+                method: "DELETE"
+            })
         })
     })
 })
 
-export const { useMeetingsQuery, useGetMeetingBySlugQuery, useCreateMeetingMutation } = meetingsApi;
+export const {
+    useMeetingsQuery,
+    useGetMeetingBySlugQuery,
+    useCreateMeetingMutation,
+    useUpdateMeetingMutation,
+    useDeleteMeetingMutation,
+} = meetingsApi;

@@ -5,6 +5,7 @@ interface Meeting {
 	date: Date;
 	startTime: string;
 	endTime: string;
+	description: string;
 }
 
 interface DocumentFile {

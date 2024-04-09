@@ -9,12 +9,10 @@ interface Props {
 }
 
 export function CustomModal({ title, children, showModal, setShowModal } : Props) {
-    useEffect(() => {
-        console.log(showModal)
-    }, [showModal]);
+    useEffect(() => {}, [showModal]);
 
     return (
-        <Modal dismissable show={showModal} onClose={() => setShowModal(false)}>
+        <Modal show={showModal} onClose={() => setShowModal(false)}>
             <Modal.Header>{title}</Modal.Header>
             <Modal.Body>{children}</Modal.Body>
         </Modal>

@@ -1,10 +1,8 @@
 import {useEffect, useState} from "react";
 import {initFlowbite} from "flowbite";
 import {Link} from "react-router-dom";
-
-interface Props {
-	data: Meeting[];
-}
+import {useDispatch} from "react-redux";
+import {setMeeting} from "../../features";
 
 function Thead() {
 	return (
@@ -46,7 +44,13 @@ function Thead() {
 	);
 }
 
-function Tbody({ data }: { data: Meeting[] }) {
+interface TbodyProps {
+	data: Meeting[];
+	editRow: ((meeting: Meeting) => void);
+	deleteRow: ((meeting: Meeting) => void);
+}
+
+function Tbody({ data, editRow, deleteRow } : TbodyProps) {
 	return (
 		<tbody>
 			{data.map((meeting, idx) => (
@@ -79,21 +83,21 @@ function Tbody({ data }: { data: Meeting[] }) {
 					<td className='px-6 py-4'>{meeting.startTime}</td>
 					<td className='px-6 py-4'>{meeting.endTime}</td>
 					<td className='px-6 py-4'>
-						<a
-							href='#'
-							className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+						<span
+							onClick={() => editRow(meeting)}
+							className='cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline'
 						>
 							Edit
-						</a>
+						</span>
 					</td>
 
 					<td className='px-6 py-4'>
-						<a
-							href='#'
-							className='font-medium text-red-600 dark:text-red-500 hover:underline'
+						<span
+							onClick={() => deleteRow(meeting)}
+							className='cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline'
 						>
 							Delete
-						</a>
+						</span>
 					</td>
 				</tr>
 			))}
@@ -101,16 +105,34 @@ function Tbody({ data }: { data: Meeting[] }) {
 	);
 }
 
-export function MeetingsTable({ data }: Props) {
+interface Props {
+	data: Meeting[];
+	onEdit: (() => void);
+	onDelete: (() => void);
+}
+
+export function MeetingsTable({ data, onEdit, onDelete }: Props) {
+	const dispatch = useDispatch()
+
 	useEffect(() => {
 		initFlowbite();
 	}, []);
+
+	const editRow = (meeting: Meeting) => {
+		dispatch(setMeeting(meeting))
+		onEdit();
+	}
+
+	const deleteRow = (meeting: Meeting) => {
+		dispatch(setMeeting(meeting))
+		onDelete();
+	}
 
 	return (
 		<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
 			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
 				<Thead/>
-				<Tbody data={data}/>
+				<Tbody data={data} editRow={editRow} deleteRow={deleteRow}/>
 			</table>
 		</div>
 	);

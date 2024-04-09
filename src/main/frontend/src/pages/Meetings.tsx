@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import {toast} from "react-toastify";
 import {useMeetingsQuery} from "../services";
-import {CustomModal, MeetingForm, MeetingsTable, TableFilterSearch, TableFooter} from '../components';
+import {
+	CreateMeetingForm,
+	CustomModal, EditMeetingForm,
+	MeetingsTable,
+	TableFilterSearch,
+	TableFooter
+} from '../components';
+import {DeleteMeetingForm} from "../components/forms/DeleteMeetingForm.tsx";
 
 export function Meetings() {
-	const [showModal, setShowModal] = useState<boolean>(false);
+	const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+	const [showEditModal, setShowEditModal] = useState<boolean>(false);
+	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
 	const { isLoading, isError, data } = useMeetingsQuery(
 		{
@@ -38,13 +47,17 @@ export function Meetings() {
 							<button
 								className="py-1.5 px-4 text-white font-semibold bg-green-700 hover:bg-green-500 rounded-md"
 								type="button"
-								onClick={() => setShowModal(true)}
+								onClick={() => setShowCreateModal(true)}
 							>
 								New Meeting
 							</button>
 						</div>
 
-						<MeetingsTable data={data.content}/>
+						<MeetingsTable
+							data={data.content}
+							onEdit={() => setShowEditModal(true)}
+							onDelete={() => setShowDeleteModal(true)}
+						/>
 
 						<TableFooter />
 					</div>
@@ -52,11 +65,29 @@ export function Meetings() {
 			</div>
 
 			<CustomModal
-				showModal={showModal}
-				setShowModal={setShowModal}
+				showModal={showCreateModal}
+				setShowModal={setShowCreateModal}
 				title="Create New Meeting"
 			>
-				<MeetingForm afterSubmit={() => setShowModal(false)}/>
+				<CreateMeetingForm />
+			</CustomModal>
+
+			<CustomModal
+				showModal={showEditModal}
+				setShowModal={setShowEditModal}
+				title="Edit Meeting"
+			>
+				<EditMeetingForm afterSubmit={() => setShowEditModal(false)}/>
+			</CustomModal>
+
+			<CustomModal
+				showModal={showDeleteModal}
+				setShowModal={setShowDeleteModal}
+				title="Delete Meeting"
+			>
+				<DeleteMeetingForm
+					onCancel={() => setShowDeleteModal(false)}
+					afterSubmit={() => setShowDeleteModal(false)}/>
 			</CustomModal>
 		</>
 	);
