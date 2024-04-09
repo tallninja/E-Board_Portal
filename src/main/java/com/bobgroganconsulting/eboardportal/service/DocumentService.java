@@ -18,6 +18,8 @@ public interface DocumentService {
     Page<DocumentDto> findAll(UUID meetingId, Pageable pageable);
     long getCount();
     long getCount(UUID meetingId);
+    long getStorageUsed();
+    long getStorageUsed(UUID meetingId);
     DocumentDto findById(UUID id);
     DocumentDto upload(UUID id, MultipartFile multipartFile) throws Exception;
     void delete(UUID id);

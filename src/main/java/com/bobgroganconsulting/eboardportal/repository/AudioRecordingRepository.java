@@ -24,4 +24,10 @@ public interface AudioRecordingRepository extends JpaRepository<AudioRecording, 
     @Query("SELECT COUNT(a) FROM AudioRecording a WHERE a.meeting = :meeting")
     long count(Meeting meeting);
 
+    @Query("SELECT SUM(a.fileSize) FROM AudioRecording a")
+    long storageUsed();
+
+    @Query("SELECT SUM(a.fileSize) FROM AudioRecording a WHERE a.meeting = :meeting")
+    long storageUsed(Meeting meeting);
+
 }

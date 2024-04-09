@@ -24,4 +24,10 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
     @Query("SELECT COUNT(d) FROM Document d WHERE d.meeting = :meeting")
     long count(Meeting meeting);
 
+    @Query("SELECT SUM(d.fileSize) FROM Document d")
+    long storageUsed();
+
+    @Query("SELECT SUM(d.fileSize) FROM Document d WHERE d.meeting = :meeting")
+    long storageUsed(Meeting meeting);
+
 }

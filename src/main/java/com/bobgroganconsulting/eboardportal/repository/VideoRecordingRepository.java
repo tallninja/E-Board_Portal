@@ -24,4 +24,10 @@ public interface VideoRecordingRepository extends JpaRepository<VideoRecording, 
     @Query("SELECT COUNT(v) FROM VideoRecording v WHERE v.meeting = :meeting")
     long count(Meeting meeting);
 
+    @Query("SELECT SUM(v.fileSize) FROM VideoRecording v")
+    long storageUsed();
+
+    @Query("SELECT SUM(v.fileSize) FROM VideoRecording v WHERE v.meeting = :meeting")
+    long storageUsed(Meeting meeting);
+
 }

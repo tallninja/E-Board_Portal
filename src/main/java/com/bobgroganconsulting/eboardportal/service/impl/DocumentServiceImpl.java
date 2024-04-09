@@ -64,6 +64,17 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public long getStorageUsed() {
+        return documentRepository.storageUsed();
+    }
+
+    @Override
+    public long getStorageUsed(UUID meetingId) {
+        Meeting meeting = meetingService.findOne(meetingId);
+        return documentRepository.storageUsed(meeting);
+    }
+
+    @Override
     public DocumentDto findById(UUID id) {
         Document document = findOne(id);
         return documentMapper.toDocumentDto(document);

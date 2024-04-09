@@ -64,6 +64,17 @@ public class AudioRecordingServiceImpl implements AudioRecordingService {
     }
 
     @Override
+    public long getStorageUsed() {
+        return audioRecordingRepository.storageUsed();
+    }
+
+    @Override
+    public long getStorageUsed(UUID meetingId) {
+        Meeting meeting = meetingService.findOne(meetingId);
+        return audioRecordingRepository.storageUsed(meeting);
+    }
+
+    @Override
     public AudioRecordingDto findById(UUID id) {
         AudioRecording audioRecording = findOne(id);
         return audioRecordingMapper.toAudioRecordingDto(audioRecording);

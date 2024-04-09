@@ -64,6 +64,17 @@ public class VideoRecordingServiceImpl implements VideoRecordingService {
     }
 
     @Override
+    public long getStorageUsed() {
+        return videoRecordingRepository.storageUsed();
+    }
+
+    @Override
+    public long getStorageUsed(UUID meetingId) {
+        Meeting meeting = meetingService.findOne(meetingId);
+        return videoRecordingRepository.storageUsed(meeting);
+    }
+
+    @Override
     public VideoRecordingDto findById(UUID id) {
         VideoRecording videoRecording = findOne(id);
         return videoRecordingMapper.toVideoRecordingDto(videoRecording);
