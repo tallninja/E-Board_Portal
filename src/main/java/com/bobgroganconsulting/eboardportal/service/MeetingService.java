@@ -17,6 +17,8 @@ import java.util.UUID;
 public interface MeetingService {
 
     Page<MeetingDto> findAll(Pageable pageable);
+    Page<MeetingDto> findAllToday(Pageable pageable);
+    Page<MeetingDto> findAllUpcoming(Pageable pageable);
     MeetingDto findById(UUID id);
     MeetingDto findBySlug(String slug);
     long getCount();

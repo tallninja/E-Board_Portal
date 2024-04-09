@@ -42,15 +42,39 @@ public class MeetingController {
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
-    @GetMapping("slug/{slug}")
-    public ResponseEntity<MeetingDto> getMeeting(@PathVariable String slug) {
-        MeetingDto meeting = meetingService.findBySlug(slug);
-        return new ResponseEntity<>(meeting, HttpStatus.OK);
+    @GetMapping("today")
+    public ResponseEntity<Page<MeetingDto>> getTodayMeetings(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
+            @RequestParam(name = "sort_direction", defaultValue = "desc") String sortDirection,
+            @RequestParam(name = "sort_by", defaultValue = "createdAt") String sortBy
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
+        Page<MeetingDto> meetings = meetingService.findAllToday(pageRequest);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
+
+    @GetMapping("upcoming")
+    public ResponseEntity<Page<MeetingDto>> getUpcomingMeetings(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
+            @RequestParam(name = "sort_direction", defaultValue = "desc") String sortDirection,
+            @RequestParam(name = "sort_by", defaultValue = "createdAt") String sortBy
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
+        Page<MeetingDto> meetings = meetingService.findAllUpcoming(pageRequest);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<MeetingDto> getMeeting(@PathVariable UUID id) {
         MeetingDto meeting = meetingService.findById(id);
+        return new ResponseEntity<>(meeting, HttpStatus.OK);
+    }
+
+    @GetMapping("slug/{slug}")
+    public ResponseEntity<MeetingDto> getMeeting(@PathVariable String slug) {
+        MeetingDto meeting = meetingService.findBySlug(slug);
         return new ResponseEntity<>(meeting, HttpStatus.OK);
     }
 

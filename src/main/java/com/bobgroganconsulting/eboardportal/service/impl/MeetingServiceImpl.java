@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,6 +37,20 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public Page<MeetingDto> findAll(Pageable pageable) {
         Page<Meeting> meetings = meetingRepository.findAll(pageable);
+        return meetings.map(meetingMapper::toMeetingDto);
+    }
+
+    @Override
+    public Page<MeetingDto> findAllToday(Pageable pageable) {
+        LocalDate today = LocalDate.now();
+        Page<Meeting> meetings = meetingRepository.findAllOnDate(today, pageable);
+        return null;
+    }
+
+    @Override
+    public Page<MeetingDto> findAllUpcoming(Pageable pageable) {
+        LocalDate today = LocalDate.now();
+        Page<Meeting> meetings = meetingRepository.findAllAfterDate(today, pageable);
         return meetings.map(meetingMapper::toMeetingDto);
     }
 
