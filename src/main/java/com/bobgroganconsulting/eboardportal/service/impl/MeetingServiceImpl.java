@@ -74,6 +74,7 @@ public class MeetingServiceImpl implements MeetingService {
         meeting.setDate(meetingDto.getDate());
         meeting.setStartTime(meetingDto.getStartTime());
         meeting.setEndTime(meetingDto.getStartTime());
+        meeting.setDescription(meetingDto.getDescription());
         meetingRepository.save(meeting);
         return meetingMapper.toMeetingDto(meeting);
     }

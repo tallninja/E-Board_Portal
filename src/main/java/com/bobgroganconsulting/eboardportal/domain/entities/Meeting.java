@@ -40,6 +40,9 @@ public class Meeting extends BaseEntityAudit<Meeting> {
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy = "meeting")
     private List<Document> documents;
 

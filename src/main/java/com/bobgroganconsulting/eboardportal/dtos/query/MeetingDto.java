@@ -23,6 +23,7 @@ public class MeetingDto {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

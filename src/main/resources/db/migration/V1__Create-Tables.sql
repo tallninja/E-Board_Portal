@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS "meetings" (
     date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
+    description VARCHAR(2000),
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     PRIMARY KEY (id)

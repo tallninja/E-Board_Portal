@@ -29,4 +29,6 @@ public class UpdateMeetingDto {
     @NotNull
     private LocalTime endTime;
 
+    private String description;
+
 }

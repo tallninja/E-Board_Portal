@@ -29,4 +29,6 @@ public class CreateMeetingDto {
     @NotNull
     private LocalTime endTime;
 
+    private String description;
+
 }
