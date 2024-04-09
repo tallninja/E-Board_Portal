@@ -94,6 +94,7 @@ public class VideoRecordingServiceImpl implements VideoRecordingService {
     @Override
     public void delete(UUID id) {
         VideoRecording videoRecording = findOne(id);
+        fileTransferService.delete(videoRecording.getFileName());
         videoRecordingRepository.delete(videoRecording);
     }
 

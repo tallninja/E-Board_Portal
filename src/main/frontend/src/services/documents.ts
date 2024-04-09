@@ -35,6 +35,12 @@ export const documentsApi = createApi({
                 body: formData,
                 formData: true
             })
+        }),
+        deleteDocument: builder.mutation<void, string>({
+            query: (id: string) => ({
+                url: `documents/${id}`,
+                method: "DELETE"
+            })
         })
     })
 });
@@ -42,5 +48,6 @@ export const documentsApi = createApi({
 export const {
     useGetDocumentsQuery,
     useGetDocumentsByMeetingQuery,
-    useUploadDocumentMutation
+    useUploadDocumentMutation,
+    useDeleteDocumentMutation
 } = documentsApi;

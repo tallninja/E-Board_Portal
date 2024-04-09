@@ -74,12 +74,8 @@ public class FileTransferController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestParam("file_name") @NotBlank String fileName){
-        boolean isDeleted = fileTransferService.delete(fileName);
-        if (isDeleted){
-            return ResponseEntity.ok().body("File deleted!");
-        } else {
-            return new ResponseEntity<>("file does not exist", HttpStatus.NOT_FOUND);
-        }
+        fileTransferService.delete(fileName);
+        return ResponseEntity.noContent().build();
     }
 
     private boolean isValidFile(MultipartFile multipartFile){

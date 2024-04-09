@@ -1,5 +1,5 @@
 import {StatsCard} from "./StatsCard.tsx";
-import {AudioIcon, FilePdfIcon, UserGroupIcon, VideoIcon} from "./icons";
+import {AudioIcon, FilePdfIcon, UserGroupIcon, VideoIcon} from "./Icons";
 
 export function Content() {
 	return (

@@ -3,10 +3,9 @@ import {useState} from "react";
 import {CustomModal} from "../CustomModal.tsx";
 import {AudioPlayer} from "../AudioPlayer.tsx";
 import prettyBytes from "pretty-bytes";
-
-interface Props {
-	data: AudioRecording[];
-}
+import {setAudioRecording, setMeeting} from "../../features";
+import {useDispatch} from "react-redux";
+import {DeleteAudioRecordingForm} from "../Forms";
 
 function Thead() {
 	return (
@@ -45,7 +44,13 @@ function Thead() {
 	);
 }
 
-function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: AudioRecording) => void) }) {
+interface TbodyProps {
+	data: AudioRecording[];
+	playAudio: ((audio: AudioRecording) => void);
+	deleteRow: ((audio: AudioRecording) => void);
+}
+
+function Tbody({data, playAudio, deleteRow} : TbodyProps) {
 
 	return (
 		<tbody>
@@ -86,19 +91,19 @@ function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: 
 							to={audio.uri}
 							target="_blank"
 							download={audio.fileName}
-							className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+							className='cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline'
 						>
 							Download
 						</Link>
 					</td>
 
 					<td className='px-6 py-4'>
-						<a
-							href='#'
-							className='font-medium text-red-600 dark:text-red-500 hover:underline'
+						<span
+							onClick={() => deleteRow(audio)}
+							className='cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline'
 						>
 							Delete
-						</a>
+						</span>
 					</td>
 				</tr>
 			))}
@@ -106,8 +111,14 @@ function Tbody({data, playAudio}: { data: AudioRecording[], playAudio: ((audio: 
 	);
 }
 
+interface Props {
+	data: AudioRecording[];
+}
+
 export function AudioRecordingsTable({ data }: Props) {
+	const dispatch = useDispatch();
 	const [showPlayer, setShowPlayer] = useState<boolean>(false);
+	const [showDeleteForm, setShowDeleteForm] = useState<boolean>(false);
 	const [audio, setAudio] = useState<AudioRecording>(null);
 
 	const playAudio = (audio: AudioRecording) => {
@@ -115,12 +126,17 @@ export function AudioRecordingsTable({ data }: Props) {
 		setShowPlayer(true);
 	}
 
+	const deleteRow = (audioRecording: AudioRecording) => {
+		dispatch(setAudioRecording(audioRecording))
+		setShowDeleteForm(true);
+	}
+
 	return (
 		<>
 			<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
 				<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
 					<Thead/>
-					<Tbody data={data} playAudio={(audio) => playAudio(audio)}/>
+					<Tbody data={data} playAudio={(audio) => playAudio(audio)} deleteRow={deleteRow}/>
 				</table>
 			</div>
 
@@ -130,6 +146,17 @@ export function AudioRecordingsTable({ data }: Props) {
 				setShowModal={setShowPlayer}
 			>
 				<AudioPlayer src={audio?.uri ?? ""} type={audio?.fileType ?? ""} />
+			</CustomModal>
+
+			<CustomModal
+				title={`${audio?.fileName.slice(14, 66)}${audio?.fileName.length > 66 ? "..." : ""}`}
+				showModal={showDeleteForm}
+				setShowModal={setShowDeleteForm}
+			>
+				<DeleteAudioRecordingForm
+					onCancel={() => setShowDeleteForm(false)}
+					afterSubmit={() => setShowDeleteForm(false)}
+				/>
 			</CustomModal>
 		</>
 	);

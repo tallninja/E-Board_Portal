@@ -1,10 +1,10 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
 import {useMeetingsQuery} from "../services";
-import {MeetingsTable} from "./tables";
-import {CreateMeetingForm, EditMeetingForm} from "./forms";
+import {MeetingsTable} from "./Tables";
+import {CreateMeetingForm, EditMeetingForm} from "./Forms";
 import {CustomModal} from "./CustomModal.tsx";
-import {DeleteMeetingForm} from "./forms/DeleteMeetingForm.tsx";
+import {DeleteMeetingForm} from "./Forms/DeleteMeetingForm.tsx";
 
 export function DashboardMeetingsTable() {
     const [showCreateModal, setShowCreateModal] = useState<boolean>(false);

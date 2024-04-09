@@ -94,6 +94,7 @@ public class AudioRecordingServiceImpl implements AudioRecordingService {
     @Override
     public void delete(UUID id) {
         AudioRecording audioRecording = findOne(id);
+        fileTransferService.delete(audioRecording.getFileName());
         audioRecordingRepository.delete(audioRecording);
     }
 

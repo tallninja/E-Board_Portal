@@ -6,9 +6,9 @@ import {
 	CustomModal, EditMeetingForm,
 	MeetingsTable,
 	TableFilterSearch,
-	TableFooter
+	TableFooter,
+	DeleteMeetingForm
 } from '../components';
-import {DeleteMeetingForm} from "../components/forms/DeleteMeetingForm.tsx";
 
 export function Meetings() {
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false);

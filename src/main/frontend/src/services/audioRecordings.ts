@@ -35,6 +35,12 @@ export const audioRecordingsApi = createApi({
                 body: formData,
                 formData: true
             })
+        }),
+        deleteAudioRecording: builder.mutation<void, string>({
+            query: (id: string) => ({
+                url: `audio-recordings/${id}`,
+                method: "DELETE"
+            })
         })
     })
 });
@@ -42,5 +48,6 @@ export const audioRecordingsApi = createApi({
 export const {
     useGetAudioRecordingsQuery,
     useGetAudioRecordingsByMeetingQuery,
-    useUploadAudioRecordingMutation
+    useUploadAudioRecordingMutation,
+    useDeleteAudioRecordingMutation
 } = audioRecordingsApi;

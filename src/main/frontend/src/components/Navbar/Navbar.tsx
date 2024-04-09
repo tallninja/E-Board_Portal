@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {useLocalStorage, useTheme} from '../../hooks';
-import {HamburgerIcon, LogoutIcon, MoonIcon, SunIcon} from '../icons';
+import {HamburgerIcon, LogoutIcon, MoonIcon, SunIcon} from '../Icons';
 import { Branding } from '../Branding';
 // import { UserMenu } from './UserMenu';
 // import IMAGES from '../../assets.ts';

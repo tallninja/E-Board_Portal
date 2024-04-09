@@ -2,7 +2,13 @@
 
 import {configureStore} from "@reduxjs/toolkit";
 import {setupListeners} from "@reduxjs/toolkit/query";
-import {authReducer, meetingsReducer} from "./features";
+import {
+    audioRecordingsReducer,
+    authReducer,
+    documentsReducer,
+    meetingsReducer,
+    videoRecordingsReducer
+} from "./features";
 import {
     authApi,
     authApiWithAuth,
@@ -17,6 +23,9 @@ export const store = configureStore({
     reducer: {
         auth: authReducer,
         meetings: meetingsReducer,
+        documents: documentsReducer,
+        audioRecordings: audioRecordingsReducer,
+        videoRecordings: videoRecordingsReducer,
         [authApi.reducerPath]: authApi.reducer,
         [authApiWithAuth.reducerPath]: authApiWithAuth.reducer,
         [statsApi.reducerPath]: statsApi.reducer,

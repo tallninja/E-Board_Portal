@@ -94,6 +94,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void delete(UUID id) {
         Document document = findOne(id);
+        fileTransferService.delete(document.getFileName());
         documentRepository.delete(document);
     }
 

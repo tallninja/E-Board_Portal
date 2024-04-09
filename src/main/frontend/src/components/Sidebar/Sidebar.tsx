@@ -9,7 +9,7 @@ import {
 	UserGroupIcon,
 	UsersIcon,
 	VideoIcon,
-} from '../icons';
+} from '../Icons';
 import { NavItem } from './NavItem';
 
 export function Sidebar() {

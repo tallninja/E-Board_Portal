@@ -1,24 +1,24 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useSelector} from "react-redux";
-import {CloudArrowIcon} from "../icons";
+import {CloudArrowIcon} from "../Icons";
 import {RootState} from "../../store.ts";
-import {useUploadVideoRecordingMutation} from "../../services";
+import {useUploadDocumentMutation} from "../../services";
 import {toast} from "react-toastify";
 
 interface Props {
     afterSubmit: Function
 }
 
-export function VideoRecordingForm({ afterSubmit } : Props) {
+export function DocumentForm({ afterSubmit } : Props) {
     const [file, setFile] = useState<File>(null);
     const meeting: Meeting = useSelector((state: RootState) => state.meetings.meeting)
-    const [uploadVideoRecording, { isLoading, isError, error }] = useUploadVideoRecordingMutation();
-    
+    const [uploadDocument, { isLoading, isError, error }] = useUploadDocumentMutation();
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("file", file);
-        await uploadVideoRecording({ meetingId: meeting.id, formData })
+        await uploadDocument({ meetingId: meeting.id, formData })
         afterSubmit();
     }
 
@@ -40,7 +40,7 @@ export function VideoRecordingForm({ afterSubmit } : Props) {
                             or drag and drop
                         </p>
                         <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
-                            MP4, MOV, or MPEG (MAX. 1GB)
+                            PDF, DOCX, or PPT (MAX. 1GB)
                         </p>
                         <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                             {file?.name}

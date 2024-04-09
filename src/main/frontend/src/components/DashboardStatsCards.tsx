@@ -1,7 +1,7 @@
 import {useCountStatsQuery} from "../services/stats.ts";
 import {toast} from "react-toastify";
 import {StatsCard} from "./StatsCard.tsx";
-import {AudioIcon, FilePdfIcon, UserGroupIcon, VideoIcon} from "./icons";
+import {AudioIcon, FilePdfIcon, UserGroupIcon, VideoIcon} from "./Icons";
 
 export function DashboardStatsCards() {
     const { isLoading, isError, data: countStats } = useCountStatsQuery(null, {

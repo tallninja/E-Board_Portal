@@ -35,6 +35,12 @@ export const videoRecordingsApi = createApi({
                 body: formData,
                 formData: true
             })
+        }),
+        deleteVideoRecording: builder.mutation<void, string>({
+            query: (id: string) => ({
+                url: `video-recordings/${id}`,
+                method: "DELETE"
+            })
         })
     })
 });
@@ -42,5 +48,6 @@ export const videoRecordingsApi = createApi({
 export const {
     useGetVideoRecordingsQuery,
     useGetVideoRecordingsByMeetingQuery,
-    useUploadVideoRecordingMutation
+    useUploadVideoRecordingMutation,
+    useDeleteVideoRecordingMutation
 } = videoRecordingsApi;

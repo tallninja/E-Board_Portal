@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {AudioIcon, FilePdfIcon, InfoCircleIcon, VideoIcon} from "../icons";
+import {AudioIcon, FilePdfIcon, InfoCircleIcon, VideoIcon} from "../Icons";
 import {NavItem} from "./NavItem.tsx";
 import {RootState} from "../../store.ts";
 

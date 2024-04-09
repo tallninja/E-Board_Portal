@@ -11,5 +11,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileTransferService {
     BlobFile uploadFile(MultipartFile multipartFile) throws Exception;
     Object downloadFile(String fileName) throws Exception;
-    boolean delete(String fileName);
+    void delete(String fileName);
 }

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { ClockIcon, DropDownIcon, SearchIcon } from '../icons';
+import { ClockIcon, DropDownIcon, SearchIcon } from '../Icons';
 import {initFlowbite} from "flowbite";
 
 export function TableFilterSearch() {

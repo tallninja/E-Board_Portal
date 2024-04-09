@@ -8,8 +8,10 @@ package com.bobgroganconsulting.eboardportal.service.impl;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.bobgroganconsulting.eboardportal.dtos.BlobFile;
+import com.bobgroganconsulting.eboardportal.exceptions.FileDeletionException;
 import com.bobgroganconsulting.eboardportal.exceptions.FileDownloadException;
 import com.bobgroganconsulting.eboardportal.service.FileTransferService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -24,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Slf4j
 @Service
 public class S3FileTransferServiceImpl implements FileTransferService {
 
@@ -97,15 +100,12 @@ public class S3FileTransferServiceImpl implements FileTransferService {
     }
 
     @Override
-    public boolean delete(String fileName) {
+    public void delete(String fileName) {
+        deleteFileFromS3Bucket(fileName);
         File file = Paths.get(fileName).toFile();
-
         if (file.exists()) {
             file.delete();
-            return true;
         }
-
-        return false;
     }
 
     private void uploadFileToS3Bucket(File file, String fileName, String fileExtension, long fileSize) {
@@ -116,6 +116,16 @@ public class S3FileTransferServiceImpl implements FileTransferService {
         metadata.setContentLength(fileSize);
         putObjectRequest.setMetadata(metadata);
         s3.putObject(putObjectRequest);
+    }
+
+    private void deleteFileFromS3Bucket(String fileName) {
+        try {
+            DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucketName, fileName);
+            s3.deleteObject(deleteObjectRequest);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new FileDeletionException(fileName);
+        }
     }
 
     private boolean bucketIsEmpty() {
