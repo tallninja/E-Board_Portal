@@ -57,12 +57,12 @@ export function Meeting() {
                     />
                 </div>
                 <div className='grid grid-cols-1 gap-4 mb-4 md:grid-cols-3'>
-                    <h4 className="text-2xl">Date: <span>{meeting?.date}</span></h4>
-                    <h4 className="text-2xl">Start Time: <span>{meeting?.startTime}</span></h4>
-                    <h4 className="text-2xl">End Time: <span>{meeting?.endTime}</span></h4>
+                    <h4 className="text-2xl text-gray-700 dark:text-gray-50">Date: <span>{meeting?.date}</span></h4>
+                    <h4 className="text-2xl text-gray-700 dark:text-gray-50">Start Time: <span>{meeting?.startTime}</span></h4>
+                    <h4 className="text-2xl text-gray-700 dark:text-gray-50">End Time: <span>{meeting?.endTime}</span></h4>
                 </div>
 
-                <p className="text-xl text-gray-500">{meeting?.description}</p>
+                <p className="text-xl text-gray-500 dark:text-gray-200">{meeting?.description}</p>
                 <BottomNavigation/>
             </div>
         </div>

@@ -5,8 +5,7 @@ export function DashBoard() {
 
 	return (
 		<>
-			<h1 className='text-4xl'>Dashboard</h1>
-			<div className='p-4 sm:ml-64 h-full'>
+			<div className='p-4 sm:ml-64 sm:mt-14 h-screen'>
 				<div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5'>
 					<DashboardStatsCards />
 					<DashboardMeetingsTable />
